@@ -13,11 +13,14 @@
   --text:#1a2e2a;--muted:#5a7a72;--muted-light:#8faaa4;
   --correct-bg:#E1F5EE;--correct-border:#5DCAA5;--correct-text:#085041;
   --wrong-bg:#fff0f0;--wrong-border:#f5a0a0;--wrong-text:#8b2020;
+  --yellow-bg:#fff8e1;--yellow-border:#ffc107;--yellow-text:#856404;
   --radius:14px;--radius-sm:8px;
 }
 html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.6;}
 .screen{display:none;min-height:100vh;flex-direction:column;background:#f7faf9;}
 .screen.active{display:flex;}
+
+/* HOME */
 #home{padding:32px 24px 48px;align-items:center;}
 .wordmark{font-size:36px;font-weight:800;color:var(--teal);letter-spacing:-1px;margin-bottom:4px;text-align:center;}
 .wordmark span{color:var(--teal-dark);}
@@ -26,14 +29,18 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .stat-card{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 10px;text-align:center;}
 .stat-val{font-size:22px;font-weight:800;color:var(--teal);}
 .stat-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
-.progress-wrap{width:100%;max-width:400px;margin-bottom:28px;}
-.progress-label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:600;}
-.progress-track{height:10px;background:var(--teal-light);border-radius:100px;overflow:hidden;}
-.progress-bar{height:100%;background:var(--teal);border-radius:100px;transition:width 1s ease;width:0%;}
+.module-tabs{display:flex;gap:8px;width:100%;max-width:400px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;}
+.module-tab{padding:8px 16px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);transition:all 0.2s;}
+.module-tab.active{background:var(--teal);color:white;border-color:var(--teal);}
+.module-tab.locked{opacity:0.4;cursor:not-allowed;}
 .module-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;max-width:400px;width:100%;margin-bottom:16px;}
 .module-tag{display:inline-flex;align-items:center;gap:6px;background:var(--teal-light);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--teal-deep);margin-bottom:14px;}
 .module-name{font-size:20px;font-weight:800;color:var(--text);margin-bottom:6px;}
 .module-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.progress-wrap{width:100%;max-width:400px;margin-bottom:28px;}
+.progress-label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+.progress-track{height:10px;background:var(--teal-light);border-radius:100px;overflow:hidden;}
+.progress-bar{height:100%;background:var(--teal);border-radius:100px;transition:width 1s ease;width:0%;}
 .lesson-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 .lesson-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border);}
 .lesson-dot{width:28px;height:28px;border-radius:50%;background:var(--teal-light);border:1.5px solid var(--teal-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--teal-deep);flex-shrink:0;}
@@ -43,6 +50,8 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .btn-start{width:100%;padding:16px;background:var(--teal);color:white;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
 .btn-start:hover{background:var(--teal-deep);}
 .btn-start:disabled{background:var(--border);color:var(--muted-light);cursor:not-allowed;}
+
+/* LESSON */
 #lesson{padding:0;}
 .lesson-header{background:var(--surface);border-bottom:1.5px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:10;}
 .btn-back{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:2px 6px;border-radius:6px;}
@@ -53,6 +62,8 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .lesson-body{flex:1;padding:24px 20px 40px;max-width:520px;margin:0 auto;width:100%;}
 .lesson-tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;}
 .lesson-heading{font-size:26px;font-weight:800;color:var(--text);margin-bottom:28px;line-height:1.2;}
+
+/* STORY */
 .story-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:20px;}
 .story-emoji{font-size:36px;margin-bottom:14px;}
 .story-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:10px;}
@@ -64,6 +75,11 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .tci{font-size:18px;margin-bottom:4px;}
 .tcn{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--teal);font-weight:600;}
 .tcd{font-size:11px;color:var(--muted);margin-top:2px;}
+.code-block{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.8;color:var(--text);}
+.code-block .kw{color:var(--teal);font-weight:600;}
+.code-block .val{color:#b45309;}
+
+/* ACTIVITY */
 .activity-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px;}
 .act-type{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:10px;}
 .act-q{font-size:16px;color:var(--text);line-height:1.6;margin-bottom:20px;font-weight:600;}
@@ -75,6 +91,8 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .opt.disabled{pointer-events:none;opacity:0.5;}
 .opt.disabled.correct{opacity:1;}
 .opt-ic{font-size:15px;flex-shrink:0;}
+
+/* DRAG */
 .drop-zone{min-height:54px;border:2px dashed var(--border);border-radius:var(--radius);padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;transition:border-color 0.2s;background:var(--surface2);}
 .drop-zone.correct-zone{border-color:var(--correct-border);background:var(--correct-bg);}
 .drop-zone.wrong-zone{border-color:var(--wrong-border);background:var(--wrong-bg);}
@@ -84,12 +102,16 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .drag-word:hover{border-color:var(--teal);background:var(--teal-light);transform:translateY(-2px);}
 .drag-word.used{opacity:0.25;pointer-events:none;}
 .placed-word{padding:6px 12px;background:var(--teal-light);border:1.5px solid var(--teal-mid);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--teal-deep);cursor:pointer;font-weight:600;}
+
+/* FILL */
 .code-template{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:14px;line-height:1.8;}
 .blank-span{display:inline-block;min-width:90px;border-bottom:2.5px solid var(--teal);color:var(--teal);text-align:center;font-weight:700;}
 .fill-input{width:100%;padding:13px 16px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--text);outline:none;transition:border-color 0.2s;font-weight:600;}
 .fill-input:focus{border-color:var(--teal);}
 .fill-input.correct-input{border-color:var(--correct-border);background:var(--correct-bg);color:var(--correct-text);}
 .fill-input.wrong-input{border-color:var(--wrong-border);background:var(--wrong-bg);color:var(--wrong-text);}
+
+/* FEEDBACK */
 .feedback{border-radius:var(--radius);padding:16px 18px;margin-top:14px;display:none;gap:12px;align-items:flex-start;}
 .feedback.show{display:flex;}
 .feedback.correct-fb{background:var(--correct-bg);border:1.5px solid var(--correct-border);}
@@ -100,6 +122,11 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .feedback.wrong-fb .fb-title{color:var(--wrong-text);}
 .fb-body{font-size:13px;line-height:1.6;color:var(--muted);}
 .fb-body code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--teal-light);color:var(--teal-deep);padding:1px 6px;border-radius:4px;}
+
+/* RETRY BANNER */
+.retry-banner{background:var(--yellow-bg);border:1.5px solid var(--yellow-border);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;font-weight:700;color:var(--yellow-text);display:flex;gap:10px;align-items:center;}
+
+/* BUTTONS */
 .btn-check{width:100%;padding:15px;background:var(--teal);color:white;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;border-radius:var(--radius);cursor:pointer;margin-top:16px;transition:all 0.2s;display:none;}
 .btn-check.show{display:block;}
 .btn-check:hover{background:var(--teal-deep);}
@@ -109,6 +136,8 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .btn-next:hover{background:var(--teal-light);}
 .btn-continue{width:100%;padding:15px;background:var(--surface2);color:var(--muted);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border-radius:var(--radius);cursor:pointer;margin-top:16px;transition:all 0.2s;}
 .btn-continue:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal-deep);}
+
+/* COMPLETE */
 #complete{align-items:center;justify-content:center;padding:48px 24px;text-align:center;}
 .complete-emoji{font-size:72px;margin-bottom:20px;animation:pop 0.5s ease;}
 @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
@@ -129,23 +158,17 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
   <div class="stats-row">
     <div class="stat-card"><div class="stat-val" id="xp-display">0</div><div class="stat-lbl">Total XP</div></div>
     <div class="stat-card"><div class="stat-val" id="streak-display">1 🔥</div><div class="stat-lbl">Streak</div></div>
-    <div class="stat-card"><div class="stat-val" id="done-display">0/3</div><div class="stat-lbl">Lessons</div></div>
+    <div class="stat-card"><div class="stat-val" id="done-display">0</div><div class="stat-lbl">Lessons Done</div></div>
   </div>
+
+  <div class="module-tabs" id="module-tabs"></div>
+
   <div class="progress-wrap">
-    <div class="progress-label"><span>Module 1 progress</span><span id="progress-pct">0%</span></div>
+    <div class="progress-label"><span id="mod-progress-label">Module 1 progress</span><span id="progress-pct">0%</span></div>
     <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
   </div>
-  <div class="module-card">
-    <div class="module-tag">📦 Module 1</div>
-    <div class="module-name">SELECT & FROM</div>
-    <div class="module-desc">Start here. No jargon, no videos. Just you, a store called Sakila, and your first SQL query.</div>
-    <div class="lesson-list">
-      <div class="lesson-row"><div class="lesson-dot" id="dot-0">1</div><div class="lesson-name">Meet the Database</div><div class="lesson-meta" id="meta-0">8 activities</div></div>
-      <div class="lesson-row"><div class="lesson-dot" id="dot-1">2</div><div class="lesson-name">SELECT & FROM</div><div class="lesson-meta" id="meta-1">9 activities</div></div>
-      <div class="lesson-row"><div class="lesson-dot" id="dot-2">3</div><div class="lesson-name">Common Mistakes</div><div class="lesson-meta" id="meta-2">8 activities</div></div>
-    </div>
-    <button class="btn-start" id="btn-start" onclick="startLesson()">Let's go →</button>
-  </div>
+
+  <div class="module-card" id="module-card"></div>
 </div>
 
 <div class="screen" id="lesson">
@@ -172,110 +195,355 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 const S={
   xp:parseInt(localStorage.getItem('sq_xp')||0),
   streak:parseInt(localStorage.getItem('sq_streak')||1),
-  done:parseInt(localStorage.getItem('sq_done')||0),
-  lesson:0,step:0,sxp:0
+  totalDone:parseInt(localStorage.getItem('sq_total_done')||0),
+  modDone:JSON.parse(localStorage.getItem('sq_mod_done')||'[0,0]'),
+  currentMod:0,
+  currentLesson:0,
+  currentStep:0,
+  sxp:0
 };
 
-const lessons=[
+const modules=[
   {
-    title:"Meet the Database",
-    msg:"You now know what the Sakila store looks like. Next up — asking your first question from it.",
-    steps:[
-      {type:'story',render:()=>`
-        <div class="story-card">
-          <div class="story-emoji">📼</div>
-          <div class="story-title">Before Netflix, there was the DVD store.</div>
-          <div class="story-body">
-            Before OTT platforms like Netflix existed, people used to rent movies on DVDs from a physical store. You'd walk in, pick a movie, pay for it, and return it a few days later.<br><br>
-            <strong>Sakila is one such store.</strong> It's a real practice database used by SQL learners worldwide — and we're going to use it throughout SQLingo.<br><br>
-            Every store keeps records. Sakila keeps its records in <strong>tables</strong> — think of each table like a spreadsheet with rows and columns.
-            <div class="table-grid">
-              <div class="table-chip"><div class="tci">🎬</div><div class="tcn">film</div><div class="tcd">Every movie in the store</div></div>
-              <div class="table-chip"><div class="tci">👤</div><div class="tcn">customer</div><div class="tcd">People who rent</div></div>
-              <div class="table-chip"><div class="tci">📋</div><div class="tcn">rental</div><div class="tcd">Every rental made</div></div>
-              <div class="table-chip"><div class="tci">💰</div><div class="tcn">payment</div><div class="tcd">Payments received</div></div>
+    name:"SELECT & FROM",
+    desc:"Start here. No jargon, no videos. Just you, a store called Sakila, and your first SQL query.",
+    lessons:[
+      {
+        title:"Meet the Database",
+        msg:"You now know what the Sakila store looks like. Next up — asking your first question from it.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">📼</div>
+              <div class="story-title">Before Netflix, there was the DVD store.</div>
+              <div class="story-body">
+                Before OTT platforms like Netflix existed, people used to rent movies on DVDs from a physical store. You would walk in, pick a movie, pay for it, and return it a few days later.<br><br>
+                <strong>Sakila is one such store.</strong> It is a real practice database used by SQL learners worldwide — and we will use it throughout SQLingo.<br><br>
+                Every store keeps records. Sakila keeps its records in <strong>tables</strong> — think of each table like a spreadsheet with rows and columns.
+                <div class="table-grid">
+                  <div class="table-chip"><div class="tci">🎬</div><div class="tcn">film</div><div class="tcd">Every movie in the store</div></div>
+                  <div class="table-chip"><div class="tci">👤</div><div class="tcn">customer</div><div class="tcd">People who rent</div></div>
+                  <div class="table-chip"><div class="tci">📋</div><div class="tcn">rental</div><div class="tcd">Every rental made</div></div>
+                  <div class="table-chip"><div class="tci">💰</div><div class="tcn">payment</div><div class="tcd">Payments received</div></div>
+                </div>
+                <br><strong>All these tables together — that is a database.</strong> Think of it as a digital filing cabinet for a business.
+              </div>
             </div>
-            <br><strong>All these tables together — that's a database.</strong> Think of it as a digital filing cabinet for a business.
-          </div>
-        </div>
-        <button class="btn-continue" onclick="nextStep()">Got it, let's go →</button>
-      `},
-      {type:'choice',q:'Sakila is a DVD rental store. Where does it keep all its information?',opts:['In a folder on a laptop','In a database made up of tables','In a spreadsheet emailed every day','In a notebook at the counter'],correct:1,fb:{correct:{t:"Exactly! 🎯",b:"A database is just an organised place to store information. Sakila's database has multiple tables — each one holds a different type of information about the store."},wrong:{t:"Not quite — think about it",b:"A database is an organised collection of tables. Each table stores a specific type of information — movies, customers, rentals, payments."}}},
-      {type:'choice',q:'Which table would you look in to find what movies are available in the Sakila store?',opts:['customer','payment','film','rental'],correct:2,fb:{correct:{t:"Yes! 🎬",b:"The film table is where all the movies live. Makes sense — you'd name a table after what it stores."},wrong:{t:"Hmm, think about the name",b:"Table names tell you exactly what's inside them. The film table stores all the movie information."}}},
-      {type:'choice',q:'Inside the film table, you see these columns: film_id, title, description, rental_rate. Which column gives you the name of each movie?',opts:['film_id','description','title','rental_rate'],correct:2,fb:{correct:{t:"That's it! 🙌",b:"The title column holds the name of each movie. Column names work the same way — they tell you exactly what data they store."},wrong:{t:"Think about what each column name means",b:"title — the name of the movie. That's the one we want. Column names are always descriptive like this."}}},
-      {type:'choice',q:'True or false — a table in a database is similar to a spreadsheet with rows and columns.',opts:['True','False'],correct:0,fb:{correct:{t:"True! ✓",b:"A table works just like a spreadsheet. Columns are the categories — like title, rental_rate. Rows are the individual records — each row is one movie."},wrong:{t:"Actually — it's True!",b:"Tables and spreadsheets are very similar. Columns = categories of information. Rows = individual records. Same concept, different name."}}},
-      {type:'choice',q:'The Sakila database has 4 tables — film, customer, rental, payment. A customer rents a movie and pays for it. Which table records the payment?',opts:['film','customer','rental','payment'],correct:3,fb:{correct:{t:"Perfect logic! 💰",b:"The payment table records every payment made at the store. Each table has one job — and the name always tells you what that job is."},wrong:{t:"Look at the table names again",b:"Each table name tells you exactly what it stores. Which one sounds like it would record money paid by customers?"}}},
-      {type:'choice',q:'You want to find out how many times a specific movie was rented. Which table would help you most?',opts:['film','customer','rental','payment'],correct:2,fb:{correct:{t:"Nice thinking! 📋",b:"The rental table has a record for every single rental — so counting rows for a specific movie tells you exactly how many times it was rented."},wrong:{t:"Think about which table tracks rentals",b:"The rental table has one row per rental. So if you want to count how many times a movie was rented, that's your table."}}},
-      {type:'choice',q:'Which of these best describes what a database is?',opts:['A single spreadsheet with all your data','A collection of organised tables that store related information','A folder of Word documents','An app you download on your phone'],correct:1,fb:{correct:{t:"That's the definition! ✓",b:"A database is a collection of organised tables. Each table stores specific related information. Sakila's database has tables for films, customers, rentals, and payments — all connected."},wrong:{t:"Not quite",b:"A database is a collection of tables — not just one spreadsheet, not documents. Multiple organised tables that store related information and work together."}}}
+            <button class="btn-continue" onclick="nextStep()">Got it, lets go →</button>
+          `},
+          {type:'choice',q:'Sakila is a DVD rental store. Where does it keep all its information?',opts:['In a folder on a laptop','In a database made up of tables','In a spreadsheet emailed every day','In a notebook at the counter'],correct:1,fb:{correct:{t:"Exactly!",b:"A database is an organised collection of tables. Each table stores a specific type of information — movies, customers, rentals, payments."},wrong:{t:"Not quite — think about it",b:"A database is an organised collection of tables. Each table stores a specific type of information — movies, customers, rentals, payments."}}},
+          {type:'choice',q:'Which table would you look in to find what movies are available in the Sakila store?',opts:['customer','payment','film','rental'],correct:2,fb:{correct:{t:"Yes!",b:"The film table is where all the movies live. Table names always tell you exactly what they store."},wrong:{t:"Think about the name",b:"Table names tell you what is inside them. The film table stores all the movie information."}}},
+          {type:'choice',q:'Inside the film table, you see these columns: film_id, title, description, rental_rate. Which column gives you the name of each movie?',opts:['film_id','description','title','rental_rate'],correct:2,fb:{correct:{t:"That is it!",b:"The title column holds the name of each movie. Column names work the same way — they tell you exactly what data they store."},wrong:{t:"Think about what each column name means",b:"title — the name of the movie. That is the one we want. Column names are always descriptive like this."}}},
+          {type:'choice',q:'True or false — a table in a database is similar to a spreadsheet with rows and columns.',opts:['True','False'],correct:0,fb:{correct:{t:"True!",b:"A table works just like a spreadsheet. Columns are the categories — like title, rental_rate. Rows are the individual records — each row is one movie."},wrong:{t:"Actually it is True!",b:"Tables and spreadsheets are very similar. Columns = categories of information. Rows = individual records."}}},
+          {type:'choice',q:'You want to find out how many times a specific movie was rented. Which table would help you most?',opts:['film','customer','rental','payment'],correct:2,fb:{correct:{t:"Nice thinking!",b:"The rental table has a record for every single rental — so counting rows for a specific movie tells you exactly how many times it was rented."},wrong:{t:"Think about which table tracks rentals",b:"The rental table has one row per rental. So if you want to count how many times a movie was rented, that is your table."}}},
+          {type:'choice',q:'Which of these best describes what a database is?',opts:['A single spreadsheet with all your data','A collection of organised tables that store related information','A folder of Word documents','An app you download on your phone'],correct:1,fb:{correct:{t:"That is the definition!",b:"A database is a collection of tables. Each table stores specific related information. Sakila has tables for films, customers, rentals, and payments — all connected."},wrong:{t:"Not quite",b:"A database is a collection of tables — not just one spreadsheet. Multiple organised tables that store related information and work together."}}},
+          {type:'choice',q:'The Sakila database has 4 tables. A customer rents a movie and pays for it. Which table records the payment?',opts:['film','customer','rental','payment'],correct:3,fb:{correct:{t:"Perfect logic!",b:"The payment table records every payment made. Each table has one job — and the name always tells you what that job is."},wrong:{t:"Look at the table names again",b:"Each table name tells you exactly what it stores. Which one sounds like it would record money paid by customers?"}}}
+        ]
+      },
+      {
+        title:"SELECT & FROM",
+        msg:"You wrote real SQL today — multiple times, in different ways. SELECT and FROM are yours now.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">💡</div>
+              <div class="story-title">You already said it in English. Now say it in SQL.</div>
+              <div class="story-body">
+                In the last lesson, you said: <strong>"I want the title column from the film table."</strong><br><br>
+                That is literally all a SQL query is. Here is the template:<br><br>
+                <code>SELECT column_name FROM table_name</code><br><br>
+                Whatever you want to <strong>see</strong> goes after SELECT.<br>
+                Where you <strong>take it from</strong> goes after FROM.<br><br>
+                That is the whole thing. Let us practise it until it feels automatic.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Let me try →</button>
+          `},
+          {type:'drag',q:'Arrange these words to get all movie titles from the film table.',words:['FROM','SELECT','film','title'],correct:['SELECT','title','FROM','film'],fb:{correct:{t:"Your first SQL query!",b:"SELECT title FROM film — reads exactly like English. Select the title, from the film table."},wrong:{t:"Almost — here is the order",b:"The template is: SELECT [what you want] FROM [where you take it from]. So: SELECT title FROM film"}}},
+          {type:'choice',q:'What does SELECT do in a SQL query?',opts:['It deletes data from a table','It tells the database which columns you want to see','It connects two tables together','It creates a new table'],correct:1,fb:{correct:{t:"Exactly!",b:"SELECT is how you tell the database: show me this. Whatever comes after SELECT is what appears in your results."},wrong:{t:"Not quite",b:"SELECT tells the database which columns to show you. Think of it as show me — SELECT title means show me the title column."}}},
+          {type:'choice',q:'What does FROM do in a SQL query?',opts:['It filters your results','It sorts your results','It tells the database which table to look in','It counts the rows'],correct:2,fb:{correct:{t:"Yes!",b:"FROM tells the database where to look. FROM film means look in the film table. Without FROM, the database would not know where to find your data."},wrong:{t:"FROM is simpler than that",b:"FROM just tells the database which table to look in. FROM film = look in the film table. That is it."}}},
+          {type:'choice',q:'You want to see both the title and rental_rate of each movie. How do you select multiple columns?',opts:['SELECT title and rental_rate FROM film','SELECT title, rental_rate FROM film','SELECT title + rental_rate FROM film','SELECT (title, rental_rate) FROM film'],correct:1,fb:{correct:{t:"Comma, not and!",b:"In SQL, columns are separated by a comma. We say and in English — but SQL only understands commas here."},wrong:{t:"Common mix-up!",b:"In English we say title and rental_rate — but SQL uses a comma between column names. It is: SELECT title, rental_rate FROM film"}}},
+          {type:'fill',q:'Complete this query to get all movie titles from the film table.',template:'___ title FROM film',answer:'SELECT',fb:{correct:{t:"Perfect.",b:"SELECT is the first word in almost every query you will ever write. It tells the database: here is what I want to see."},wrong:{t:"The missing word is SELECT",b:"SELECT title FROM film. SELECT always comes first — it is how you tell SQL what to show you."}}},
+          {type:'choice',q:'You want every single column from the film table at once. What do you write after SELECT?',opts:['all','*','everything','film.*'],correct:1,fb:{correct:{t:"The star!",b:"SELECT * FROM film gives you every column. The * means give me everything. Super useful when exploring a table for the first time."},wrong:{t:"It is simpler than you think",b:"The symbol is * — the asterisk. One character and you get every column. SELECT * FROM film."}}},
+          {type:'drag',q:'Now write a query to get all columns from the customer table.',words:['customer','FROM','*','SELECT'],correct:['SELECT','*','FROM','customer'],fb:{correct:{t:"Yes!",b:"SELECT * FROM customer — you are getting the hang of this. The template always works the same way."},wrong:{t:"Same template, different table",b:"SELECT * FROM customer. SELECT first, then what you want (* for everything), then FROM, then the table name."}}},
+          {type:'choice',q:'Which query correctly gets the title and description columns from the film table?',opts:['SELECT title, description FROM film','SELECT title and description FROM film','FROM film SELECT title, description','SELECT film FROM title, description'],correct:0,fb:{correct:{t:"Nailed it!",b:"SELECT title, description FROM film. Columns separated by comma, FROM tells us the table. You are reading SQL like a language now."},wrong:{t:"Remember the template",b:"SELECT always comes first, then your columns separated by commas, then FROM, then the table. SELECT title, description FROM film."}}}
+        ]
+      },
+      {
+        title:"Common Mistakes",
+        msg:"You now know what SQL cares about and what it does not. That will save you a lot of frustration.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">⚠️</div>
+              <div class="story-title">SQL is relaxed about some things. Very strict about others.</div>
+              <div class="story-body">
+                Good news — SQL does not care about uppercase or lowercase. <code>select</code>, <code>SELECT</code>, <code>Select</code> — all work exactly the same.<br><br>
+                But SQL is very strict about these:<br><br>
+                <strong>Spellings</strong> — type <code>films</code> instead of <code>film</code> and you will get an error. One extra letter breaks everything.<br><br>
+                <strong>Spaces in names</strong> — if a column is called <code>first_name</code>, you cannot write <code>first name</code> with a space. The underscore is part of the name. Use it exactly as it appears.<br><br>
+                <strong>Spaces between keywords</strong> — there must be a space between SELECT and your column name, and between FROM and your table name.<br><br>
+                Let us make sure these stick.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Let us test this →</button>
+          `},
+          {type:'choice',q:"True or false — in SQL, SELECT and select do exactly the same thing.",opts:["True — cases do not matter in SQL","False — you must always use UPPERCASE"],correct:0,fb:{correct:{t:"True! SQL does not care about case.",b:"SELECT, select, Select — all work the same. Most people write keywords in uppercase just to make queries easier to read. But SQL does not require it."},wrong:{t:"Actually it is True!",b:"SQL keywords are case-insensitive. SELECT and select do the exact same thing."}}},
+          {type:'choice',q:'Your table is called film. A student types: SELECT title FROM films. What happens?',opts:['It works — SQL ignores the extra s','It returns an empty result','It gives an error — films does not exist','SQL automatically corrects it to film'],correct:2,fb:{correct:{t:"Error — every time.",b:"SQL is exact about names. films is not the same as film. One extra letter and the database has no idea what you are referring to."},wrong:{t:"It gives an error — always",b:"SQL does not guess or autocorrect. films is not equal to film. The table does not exist by that name, so the query fails immediately."}}},
+          {type:'choice',q:'A column is called rental_rate. Which version will cause an error in your query?',opts:['rental_rate','rental rate','Rental_Rate','RENTAL_RATE'],correct:1,fb:{correct:{t:"Yes — the space breaks it!",b:"rental rate with a space causes an error. SQL sees it as two separate words and gets confused. Always use the underscore: rental_rate. Cases do not matter — rental_rate, Rental_Rate, RENTAL_RATE all work fine."},wrong:{t:"Think about what SQL is strict about",b:"SQL does not care about cases. rental_rate, Rental_Rate, RENTAL_RATE all work. What SQL cannot handle is a space inside a name. rental rate breaks everything."}}},
+          {type:'choice',q:'Which of these queries is written correctly?',opts:['SELECTtitle FROM film','SELECT title FROMfilm','SELECT title FROM film','SELECT, title FROM film'],correct:2,fb:{correct:{t:"That is the one.",b:"A space between every keyword and name — SELECT space title space FROM space film. Remove any space and the query breaks."},wrong:{t:"Look at the spaces carefully",b:"There must be a space between SELECT and the column name, and between FROM and the table name. The correct version: SELECT title FROM film"}}},
+          {type:'choice',q:'True or false — SELECT Title FROM Film works the same as SELECT title FROM film.',opts:['True — cases do not matter','False — you must use lowercase for table and column names'],correct:0,fb:{correct:{t:"True!",b:"Cases do not matter anywhere in a SQL query — keywords, table names, column names. SQL is completely case-insensitive."},wrong:{t:"Actually True!",b:"SQL is case-insensitive everywhere — keywords AND names. SELECT Title FROM Film is identical to SELECT title FROM film."}}},
+          {type:'choice',q:'A student writes: SELECT first name FROM customer. What is wrong with this query?',opts:['Nothing — it looks correct','The column name should be first_name not first name','FROM should come before SELECT','customer should be in uppercase'],correct:1,fb:{correct:{t:"Sharp eye!",b:"The column is called first_name — with an underscore. Writing first name with a space makes SQL think you are writing two separate things, which causes an error."},wrong:{t:"Look at the column name",b:"first name has a space in the middle. But the actual column name is first_name with an underscore. SQL sees first name as two separate words and gets confused."}}},
+          {type:'fill',q:'A column is called last_name. Complete this query to get it from the customer table.',template:'SELECT ___ FROM customer',answer:'last_name',fb:{correct:{t:"Perfect — underscore and all.",b:"last_name — exactly as the column is named. Always use the column name exactly as it appears in the table, underscore included."},wrong:{t:"Remember the underscore",b:"The column name is last_name — with an underscore connecting the two words. No space allowed."}}},
+          {type:'choice',q:'Which of these mistakes will definitely cause an error in SQL?',opts:['Writing SELECT in lowercase','Leaving a space in a column name like first name instead of first_name','Writing the table name in uppercase','Using a comma between column names'],correct:1,fb:{correct:{t:"That is the one to watch out for!",b:"Spaces inside column or table names break SQL completely. first name is not the same as first_name. Always use underscore to join words in names."},wrong:{t:"Think about what SQL is strict about",b:"SQL does not care about case — uppercase, lowercase, it is fine. But spaces inside names are a problem. first name breaks the query. first_name is correct."}}}
+        ]
+      }
     ]
   },
   {
-    title:"SELECT & FROM",
-    msg:"You wrote real SQL today — multiple times, in different ways. SELECT and FROM are yours now.",
-    steps:[
-      {type:'story',render:()=>`
-        <div class="story-card">
-          <div class="story-emoji">💡</div>
-          <div class="story-title">You already said it in English. Now say it in SQL.</div>
-          <div class="story-body">
-            In the last lesson, you said: <strong>"I want the title column from the film table."</strong><br><br>
-            That's literally all a SQL query is. Here's the template:<br><br>
-            <code>SELECT column_name FROM table_name</code><br><br>
-            Whatever you want to <strong>see</strong> goes after SELECT.<br>
-            Where you <strong>take it from</strong> goes after FROM.<br><br>
-            That's the whole thing. Let's practise it until it feels automatic.
-          </div>
-        </div>
-        <button class="btn-continue" onclick="nextStep()">Let me try →</button>
-      `},
-      {type:'drag',q:'Arrange these words to get all movie titles from the film table.',words:['FROM','SELECT','film','title'],correct:['SELECT','title','FROM','film'],fb:{correct:{t:"Your first SQL query! 🎉",b:"SELECT title FROM film — reads exactly like English. Select the title, from the film table. Simple as that."},wrong:{t:"Almost — here's the order",b:"The template is: SELECT [what you want] FROM [where you take it from]. So: SELECT title FROM film"}}},
-      {type:'choice',q:'What does SELECT do in a SQL query?',opts:['It deletes data from a table','It tells the database which columns you want to see','It connects two tables together','It creates a new table'],correct:1,fb:{correct:{t:"Exactly! ✓",b:"SELECT is how you tell the database: 'show me this.' Whatever comes after SELECT is what appears in your results."},wrong:{t:"Not quite",b:"SELECT tells the database which columns to show you in the result. Think of it as 'show me' — SELECT title means 'show me the title column.'"}}},
-      {type:'choice',q:'What does FROM do in a SQL query?',opts:['It filters your results','It sorts your results','It tells the database which table to look in','It counts the rows'],correct:2,fb:{correct:{t:"Yes! ✓",b:"FROM tells the database where to look. FROM film means 'look in the film table.' Without FROM, the database wouldn't know where to find your data."},wrong:{t:"FROM is simpler than that",b:"FROM just tells the database which table to look in. FROM film = look in the film table. That's it."}}},
-      {type:'choice',q:'You want to see both the title and rental_rate of each movie. How do you select multiple columns?',opts:['SELECT title and rental_rate FROM film','SELECT title, rental_rate FROM film','SELECT title + rental_rate FROM film','SELECT (title, rental_rate) FROM film'],correct:1,fb:{correct:{t:"Comma! Not 'and'. 👏",b:"In SQL, columns are separated by a comma. We say 'and' in English — but SQL only understands commas here. Easy to forget at first, easy to remember once you know."},wrong:{t:"Common mix-up!",b:"In English we say 'title and rental_rate' — but SQL uses a comma between column names. It's: SELECT title, rental_rate FROM film"}}},
-      {type:'fill',q:'Complete this query to get all movie titles from the film table.',template:'___ title FROM film',answer:'SELECT',fb:{correct:{t:"Perfect. ✓",b:"SELECT is the first word in almost every query you'll ever write. It tells the database: here's what I want to see."},wrong:{t:"The missing word is SELECT",b:"SELECT title FROM film. SELECT always comes first — it's how you tell SQL what to show you."}}},
-      {type:'choice',q:'You want every single column from the film table at once. What do you write after SELECT?',opts:['all','*','everything','film.*'],correct:1,fb:{correct:{t:"The star! ⭐",b:"SELECT * FROM film gives you every column. The * means 'give me everything.' Super useful when you're exploring a table for the first time."},wrong:{t:"It's simpler than you think",b:"The symbol is * — the asterisk. One character and you get every column. SELECT * FROM film."}}},
-      {type:'drag',q:'Now write a query to get all columns from the customer table.',words:['customer','FROM','*','SELECT'],correct:['SELECT','*','FROM','customer'],fb:{correct:{t:"Yes! 🙌",b:"SELECT * FROM customer — you're getting the hang of this. The template always works the same way, no matter which table you're querying."},wrong:{t:"Same template, different table",b:"SELECT * FROM customer. SELECT first, then what you want (* for everything), then FROM, then the table name."}}},
-      {type:'choice',q:'Which query correctly gets the title and description columns from the film table?',opts:['SELECT title, description FROM film','SELECT title and description FROM film','FROM film SELECT title, description','SELECT film FROM title, description'],correct:0,fb:{correct:{t:"Nailed it! ✓",b:"SELECT title, description FROM film. Columns separated by comma, FROM tells us the table. You're reading SQL like a language now."},wrong:{t:"Remember the template",b:"SELECT always comes first, then your columns separated by commas, then FROM, then the table. SELECT title, description FROM film."}}}
-    ]
-  },
-  {
-    title:"Common Mistakes",
-    msg:"You now know what SQL cares about and what it doesn't. That'll save you a lot of frustration.",
-    steps:[
-      {type:'story',render:()=>`
-        <div class="story-card">
-          <div class="story-emoji">⚠️</div>
-          <div class="story-title">SQL is relaxed about some things. Very strict about others.</div>
-          <div class="story-body">
-            Good news — SQL doesn't care about uppercase or lowercase. <code>select</code>, <code>SELECT</code>, <code>Select</code> — all work exactly the same.<br><br>
-            But SQL is very strict about these:<br><br>
-            <strong>Spellings</strong> — type <code>films</code> instead of <code>film</code> and you'll get an error. One extra letter breaks everything.<br><br>
-            <strong>Spaces in names</strong> — if a column is called <code>first_name</code>, you cannot write <code>first name</code> with a space. The underscore is part of the name. Use it exactly as it appears.<br><br>
-            <strong>Spaces between keywords</strong> — there must be a space between SELECT and your column name, and between FROM and your table name.<br><br>
-            Let's make sure these stick.
-          </div>
-        </div>
-        <button class="btn-continue" onclick="nextStep()">Let's test this →</button>
-      `},
-      {type:'choice',q:"True or false — in SQL, SELECT and select do exactly the same thing.",opts:["True — cases don't matter in SQL","False — you must always use UPPERCASE"],correct:0,fb:{correct:{t:"True! SQL doesn't care about case. ✓",b:"SELECT, select, Select — all work the same. Most people write keywords in uppercase just to make queries easier to read. But SQL doesn't require it."},wrong:{t:"Actually — it's True!",b:"SQL keywords are case-insensitive. SELECT and select do the exact same thing. You can write however you like — SQL won't mind."}}},
-      {type:'choice',q:'Your table is called film. A student types: SELECT title FROM films. What happens?',opts:['It works — SQL ignores the extra s','It returns an empty result','It gives an error — "films" doesn\'t exist','SQL automatically corrects it to film'],correct:2,fb:{correct:{t:"Error — every time. ✓",b:"SQL is exact about names. films is not the same as film. One extra letter and the database has no idea what you're referring to. Always double-check your spelling."},wrong:{t:"It gives an error — always",b:"SQL doesn't guess or autocorrect. films ≠ film. The table doesn't exist by that name, so the query fails immediately."}}},
-      {type:'choice',q:'A column is called rental_rate. Which version will cause an error in your query?',opts:['rental_rate','rental rate','Rental_Rate','RENTAL_RATE'],correct:1,fb:{correct:{t:"Yes — the space breaks it! ✓",b:"rental rate with a space causes an error. SQL sees it as two separate words and gets confused. Always use the underscore: rental_rate. Cases don't matter — rental_rate, Rental_Rate, RENTAL_RATE all work fine."},wrong:{t:"Hmm — think about what SQL is strict about",b:"Remember — SQL doesn't care about cases. rental_rate, Rental_Rate, RENTAL_RATE all work. What SQL cannot handle is a space inside a name. rental rate breaks everything."}}},
-      {type:'choice',q:'Which of these queries is written correctly?',opts:['SELECTtitle FROM film','SELECT title FROMfilm','SELECT title FROM film','SELECT, title FROM film'],correct:2,fb:{correct:{t:"That's the one. ✓",b:"A space between every keyword and name — SELECT [space] title [space] FROM [space] film. Remove any space and the query breaks."},wrong:{t:"Look at the spaces carefully",b:"There must be a space between SELECT and the column name, and between FROM and the table name. The correct version: SELECT title FROM film"}}},
-      {type:'choice',q:'True or false — SELECT Title FROM Film works the same as SELECT title FROM film.',opts:['True — cases don\'t matter','False — you must use lowercase for table and column names'],correct:0,fb:{correct:{t:"True! ✓",b:"Cases don't matter anywhere in a SQL query — keywords, table names, column names. SQL is completely case-insensitive. SELECT Title FROM Film works perfectly."},wrong:{t:"Actually True!",b:"SQL is case-insensitive everywhere — keywords AND names. SELECT Title FROM Film is identical to SELECT title FROM film."}}},
-      {type:'choice',q:'A student writes: SELECT first name FROM customer. What is wrong with this query?',opts:['Nothing — it looks correct','The column name should be first_name not first name','FROM should come before SELECT','customer should be in uppercase'],correct:1,fb:{correct:{t:"Sharp eye! ✓",b:"The column is called first_name — with an underscore. Writing first name with a space makes SQL think you're writing two separate things, which causes an error."},wrong:{t:"Look at the column name",b:"first name has a space in the middle. But the actual column name is first_name with an underscore. SQL sees 'first name' as two separate words and gets confused."}}},
-      {type:'fill',q:'A column is called last_name. Complete this query to get it from the customer table.',template:'SELECT ___ FROM customer',answer:'last_name',fb:{correct:{t:"Perfect — underscore and all. ✓",b:"last_name — exactly as the column is named. Always use the column name exactly as it appears in the table, underscore included."},wrong:{t:"Remember the underscore",b:"The column name is last_name — with an underscore connecting the two words. No space allowed."}}},
-      {type:'choice',q:'Which of these mistakes will definitely cause an error in SQL?',opts:['Writing SELECT in lowercase','Leaving a space in a column name like first name instead of first_name','Writing the table name in uppercase','Using a comma between column names'],correct:1,fb:{correct:{t:"That's the one to watch out for! ✓",b:"Spaces inside column or table names break SQL completely. first name is not the same as first_name. Always use underscore to join words in names."},wrong:{t:"Think about what SQL is strict about",b:"SQL doesn't care about case — uppercase, lowercase, it's fine. But spaces inside names are a problem. first name breaks the query. first_name is correct."}}}
+    name:"WHERE & Operators",
+    desc:"Filter your data like you filter products on Amazon. Single conditions, multiple conditions, and everything in between.",
+    lessons:[
+      {
+        title:"What is WHERE?",
+        msg:"You can now filter data like a pro. WHERE is your most used SQL keyword — you just learned it.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">🛒</div>
+              <div class="story-title">You already know how WHERE works. You use it every time you shop online.</div>
+              <div class="story-body">
+                When you open Amazon, you do not scroll through every single product. You use <strong>filters</strong>.<br><br>
+                Price under ₹500. Rating above 4 stars. Brand: Nike.<br><br>
+                <strong>WHERE does exactly the same thing for your database.</strong> Instead of getting every row from a table, you filter — show me only the rows that match my condition.<br><br>
+                <code>SELECT column FROM table WHERE condition</code><br><br>
+                Single filter = one WHERE condition.<br>
+                Multiple filters = AND, OR — just like checking multiple boxes on Amazon.<br><br>
+                You already know how this works. Now let us say it in SQL.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Let us go →</button>
+          `},
+          {type:'choice',q:'On Amazon you filter products by price under ₹500. What is the SQL equivalent of this filter?',opts:['SELECT * FROM products ORDER BY price','SELECT * FROM products WHERE price < 500','SELECT price FROM products LIMIT 500','SELECT * FROM products HAVING price < 500'],correct:1,fb:{correct:{t:"Exactly!",b:"WHERE price < 500 filters rows just like an Amazon price filter. Only rows where the price is less than 500 will appear in the results."},wrong:{t:"Think about filtering",b:"WHERE is the filter in SQL. WHERE price < 500 means show me only the rows where price is less than 500 — just like an Amazon price filter."}}},
+          {type:'choice',q:'WHERE goes after which part of the query?',opts:['Before SELECT','After SELECT but before FROM','After FROM and the table name','At the very end of every query'],correct:2,fb:{correct:{t:"Correct!",b:"The order is always SELECT → FROM → WHERE. You tell SQL what you want, where to get it from, and then which ones to show you."},wrong:{t:"Remember the order",b:"SQL reads in this order: SELECT (what you want) → FROM (which table) → WHERE (which rows). So WHERE always comes after the table name."}}},
+          {type:'drag',q:'Arrange this query to get films with a rental rate less than 3.',words:['film','FROM','SELECT','WHERE','*','rental_rate < 3'],correct:['SELECT','*','FROM','film','WHERE','rental_rate < 3'],fb:{correct:{t:"Perfect!",b:"SELECT * FROM film WHERE rental_rate < 3 — every column, from the film table, but only the rows where rental rate is less than 3."},wrong:{t:"Remember the order",b:"It goes: SELECT what you want, FROM which table, WHERE which condition. SELECT * FROM film WHERE rental_rate < 3"}}},
+          {type:'choice',q:'You run SELECT * FROM film WHERE rental_rate = 4.99. What does this return?',opts:['All films in the table','Only films where rental rate is exactly 4.99','Films where rental rate is less than 4.99','Films sorted by rental rate'],correct:1,fb:{correct:{t:"Yes!",b:"The = operator checks for an exact match. Only rows where rental_rate is exactly 4.99 will be returned."},wrong:{t:"Think about what = means",b:"= means exactly equal to. So WHERE rental_rate = 4.99 returns only the rows where the rental rate is exactly 4.99."}}},
+          {type:'choice',q:'On Amazon you can filter by multiple things at once — price AND rating. In SQL, how do you add multiple conditions to WHERE?',opts:['Write two separate WHERE clauses','Use AND or OR between conditions','Use a comma between conditions','Use + between conditions'],correct:1,fb:{correct:{t:"Correct!",b:"AND and OR let you combine multiple conditions in one WHERE clause — just like checking multiple filter boxes on Amazon."},wrong:{t:"Think about how Amazon filters work",b:"You can only have one WHERE keyword — but you can combine conditions using AND or OR. WHERE price < 500 AND rating > 4."}}},
+          {type:'choice',q:'True or false — you can use WHERE without SELECT.',opts:['True — WHERE works on its own','False — WHERE only works inside a complete SQL query'],correct:1,fb:{correct:{t:"Correct!",b:"WHERE is not a standalone command. It only works as part of a SELECT query — SELECT → FROM → WHERE."},wrong:{t:"Actually False!",b:"WHERE cannot work on its own. It always needs to be part of a complete query — SELECT columns FROM table WHERE condition."}}},
+          {type:'fill',q:'Complete this query to get all columns from the film table where the rating is G.',template:"SELECT * FROM film WHERE rating ___ 'G'",answer:'=',fb:{correct:{t:"Perfect!",b:"= is the equality operator. WHERE rating = 'G' means show me only the rows where rating is exactly G."},wrong:{t:"The operator you need is =",b:"= checks for exact match. WHERE rating = 'G' returns only films rated G."}}},
+          {type:'choice',q:'Which of these is a valid WHERE clause?',opts:["WHERE = rating 'G'","WHERE rating 'G'","WHERE rating = 'G'","FILTER rating = 'G'"],correct:2,fb:{correct:{t:"That is it!",b:"WHERE rating = 'G' — WHERE keyword, then column name, then operator, then value. That is the correct structure."},wrong:{t:"Check the structure",b:"WHERE needs to be followed by: column name, then operator, then value. The correct version is WHERE rating = 'G'."}}}
+        ]
+      },
+      {
+        title:"Comparison Operators",
+        msg:"Comparison operators are the building blocks of every WHERE clause. You now know all of them.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">⚖️</div>
+              <div class="story-title">Comparison operators — how you compare values in SQL.</div>
+              <div class="story-body">
+                Just like in maths, SQL has operators to compare values:<br><br>
+                <code>=</code> &nbsp;Equal to<br>
+                <code>!=</code> or <code>&lt;&gt;</code> &nbsp;Not equal to<br>
+                <code>&gt;</code> &nbsp;Greater than<br>
+                <code>&lt;</code> &nbsp;Less than<br>
+                <code>&gt;=</code> &nbsp;Greater than or equal to<br>
+                <code>&lt;=</code> &nbsp;Less than or equal to<br><br>
+                You use these after WHERE to define your filter condition.<br><br>
+                On Amazon — price is less than ₹500 means <code>price &lt; 500</code><br>
+                Rating is 4 stars or more means <code>rating &gt;= 4</code>
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Got it →</button>
+          `},
+          {type:'choice',q:'You want films where the rental rate is MORE than 2.99. Which operator do you use?',opts:['=','>=','>','<'],correct:2,fb:{correct:{t:"Yes! > means strictly greater than.",b:"WHERE rental_rate > 2.99 returns only films where rental rate is more than 2.99. Films with exactly 2.99 will NOT be included."},wrong:{t:"Think carefully",b:"> means strictly greater than — does not include 2.99 itself. >= means greater than OR equal to — includes 2.99. You want strictly more than, so use >."}}},
+          {type:'choice',q:'You want films where the rental rate is 2.99 OR MORE. Which operator do you use?',opts:['>','>=','=','<='],correct:1,fb:{correct:{t:"Correct! >= includes the value itself.",b:"WHERE rental_rate >= 2.99 returns films where rental rate is 2.99 or anything above it. The = in >= means include the value itself."},wrong:{t:"Think about or more",b:">= means greater than OR equal to. It includes the value you specify. > without = would exclude 2.99 itself."}}},
+          {type:'choice',q:'Which operator checks if two values are NOT equal?',opts:['=','<>','>','<='],correct:1,fb:{correct:{t:"Yes! <> means not equal.",b:"<> and != both mean not equal to. WHERE rating <> 'G' returns all films that are NOT rated G. Both operators work the same way."},wrong:{t:"Not quite",b:"<> means not equal to. It is the same as !=. WHERE rating <> 'G' returns everything except G-rated films."}}},
+          {type:'fill',q:"Complete this query to find all films that are NOT rated PG.",template:"SELECT title FROM film WHERE rating ___ 'PG'",answer:'!=',fb:{correct:{t:"Perfect!",b:"!= means not equal to. WHERE rating != 'PG' returns all films where the rating is anything other than PG. You can also use <> — both work."},wrong:{t:"The operator you need is != or <>",b:"Both != and <> mean not equal to in SQL. WHERE rating != 'PG' returns everything except PG-rated films."}}},
+          {type:'choice',q:'You want films with a rental duration of 5 days or LESS. Which query is correct?',opts:["SELECT * FROM film WHERE rental_duration > 5","SELECT * FROM film WHERE rental_duration < 5","SELECT * FROM film WHERE rental_duration <= 5","SELECT * FROM film WHERE rental_duration >= 5"],correct:2,fb:{correct:{t:"Yes! <= includes 5 itself.",b:"<= means less than or equal to. WHERE rental_duration <= 5 returns films with duration of exactly 5 or anything below it."},wrong:{t:"Think about or less",b:"<= means less than OR equal to — it includes the value itself. < would exclude 5. You want 5 or less, so use <=."}}},
+          {type:'choice',q:'What does WHERE rental_rate = 0.99 return?',opts:['All films in the table','Films where rental rate is less than 0.99','Only films where rental rate is exactly 0.99','Films where rental rate is 0.99 or more'],correct:2,fb:{correct:{t:"Exactly!",b:"= is an exact match. Only rows where rental_rate is precisely 0.99 will be returned. Not 1.99, not 0.98 — exactly 0.99."},wrong:{t:"Remember what = means",b:"= means exactly equal to. WHERE rental_rate = 0.99 returns only rows where the rental rate is precisely 0.99."}}},
+          {type:'drag',q:'Build a query to find all films with a replacement cost greater than 20.',words:['*','SELECT','WHERE','film','FROM','replacement_cost > 20'],correct:['SELECT','*','FROM','film','WHERE','replacement_cost > 20'],fb:{correct:{t:"Great!",b:"SELECT * FROM film WHERE replacement_cost > 20 — all columns, from the film table, only where replacement cost is more than 20."},wrong:{t:"Remember the order",b:"SELECT → FROM → WHERE. Build it as: SELECT * FROM film WHERE replacement_cost > 20"}}},
+          {type:'choice',q:'Which operator would you use to find customers whose last name comes before M alphabetically?',opts:['>','<','>=','<='],correct:1,fb:{correct:{t:"Yes! < works on text too.",b:"Comparison operators work on text as well — SQL compares alphabetically. WHERE last_name < 'M' returns names that come before M alphabetically."},wrong:{t:"Comparison operators work on text too",b:"< works on text — SQL compares alphabetically. WHERE last_name < 'M' returns all customers whose last name starts with a letter before M."}}}
+        ]
+      },
+      {
+        title:"Arithmetic Operators",
+        msg:"You can now do math inside SQL queries. Arithmetic operators open up a whole new level of data analysis.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">🧮</div>
+              <div class="story-title">SQL can do maths. Right inside your query.</div>
+              <div class="story-body">
+                You are not limited to just reading values from a table. You can calculate directly in your query.<br><br>
+                <code>+</code> &nbsp;Addition<br>
+                <code>-</code> &nbsp;Subtraction<br>
+                <code>*</code> &nbsp;Multiplication<br>
+                <code>/</code> &nbsp;Division<br>
+                <code>%</code> &nbsp;Modulus — the remainder after division<br><br>
+                You can use arithmetic in SELECT to create calculated columns:<br>
+                <div class="code-block"><span class="kw">SELECT</span> title, rental_rate * <span class="val">2</span> <span class="kw">FROM</span> film</div>
+                And in WHERE to filter by calculated values:<br>
+                <div class="code-block"><span class="kw">SELECT</span> * <span class="kw">FROM</span> film <span class="kw">WHERE</span> rental_rate * <span class="val">2</span> > <span class="val">5</span></div>
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Let me try →</button>
+          `},
+          {type:'choice',q:'You want to see the rental rate doubled for every film. Which query does this?',opts:['SELECT title, rental_rate FROM film','SELECT title, rental_rate + 2 FROM film','SELECT title, rental_rate * 2 FROM film','SELECT title, rental_rate / 2 FROM film'],correct:2,fb:{correct:{t:"Yes!",b:"rental_rate * 2 multiplies the rental rate by 2 for every row. The result appears as a calculated column in your output."},wrong:{t:"Think about doubling",b:"To double a value you multiply by 2. rental_rate * 2 gives you the doubled rental rate for every film."}}},
+          {type:'choice',q:'What does the % operator do in SQL?',opts:['It represents all columns like SELECT *','It gives the remainder after division','It is used in LIKE for pattern matching','It multiplies two values'],correct:1,fb:{correct:{t:"Correct!",b:"% as an arithmetic operator gives the remainder after division. 10 % 3 = 1 because 10 divided by 3 is 3 remainder 1. Note: % in LIKE is a wildcard — different use, same symbol."},wrong:{t:"% has two uses in SQL",b:"As an arithmetic operator, % gives the remainder after division. 10 % 3 = 1. Note: in LIKE, % is used as a wildcard — that is a different context."}}},
+          {type:'fill',q:'Write a query to see each film title and its rental rate with a 10% discount applied.',template:'SELECT title, rental_rate ___ 0.10 FROM film',answer:'*',fb:{correct:{t:"Yes! Multiply to apply a percentage.",b:"rental_rate * 0.10 gives you 10% of the rental rate. To get the discounted price you would do rental_rate - rental_rate * 0.10 — or rental_rate * 0.90."},wrong:{t:"To get 10% of a value, multiply by 0.10",b:"rental_rate * 0.10 gives you 10% of the rental rate. * is the multiplication operator in SQL."}}},
+          {type:'choice',q:'You want to find films where the replacement cost is more than 5 times the rental rate. Which WHERE clause is correct?',opts:['WHERE replacement_cost > rental_rate + 5','WHERE replacement_cost > rental_rate * 5','WHERE replacement_cost * 5 > rental_rate','WHERE replacement_cost > rental_rate / 5'],correct:1,fb:{correct:{t:"Exactly!",b:"WHERE replacement_cost > rental_rate * 5 checks if replacement cost is more than 5 times the rental rate. You can use arithmetic directly in WHERE conditions."},wrong:{t:"Five times means multiply by 5",b:"5 times the rental rate = rental_rate * 5. So the condition is WHERE replacement_cost > rental_rate * 5."}}},
+          {type:'choice',q:'What does SELECT 10 / 3 return in MySQL?',opts:['3','3.3333','4','Error'],correct:1,fb:{correct:{t:"Yes — MySQL returns decimals!",b:"In MySQL, 10 / 3 returns 3.3333. Unlike some other databases, MySQL does not drop the decimal in division. Always test division results in your specific database."},wrong:{t:"MySQL keeps the decimal!",b:"In MySQL, dividing 10 by 3 returns 3.3333 — not 3. MySQL preserves the decimal part in division results."}}},
+          {type:'choice',q:'You want films where the film length divided by the rental duration is more than 20. Which query is correct?',opts:['SELECT * FROM film WHERE length > 20 / rental_duration','SELECT * FROM film WHERE length / rental_duration > 20','SELECT * FROM film WHERE length * rental_duration > 20','SELECT * FROM film WHERE length - rental_duration > 20'],correct:1,fb:{correct:{t:"Perfect!",b:"length / rental_duration calculates how many minutes of film you get per day of rental. WHERE length / rental_duration > 20 filters for good value films."},wrong:{t:"Think about what you are calculating",b:"You want length divided by rental_duration — that gives minutes per day. So the condition is WHERE length / rental_duration > 20."}}},
+          {type:'drag',q:'Build a query to find all films where the rental rate plus 1 is greater than 4.',words:['*','SELECT','WHERE','film','FROM','rental_rate + 1 > 4'],correct:['SELECT','*','FROM','film','WHERE','rental_rate + 1 > 4'],fb:{correct:{t:"Great!",b:"SELECT * FROM film WHERE rental_rate + 1 > 4 — arithmetic right inside the WHERE condition. This returns films where rental rate is more than 3."},wrong:{t:"Remember the order",b:"SELECT * FROM film WHERE rental_rate + 1 > 4. The arithmetic goes inside the WHERE condition."}}},
+          {type:'choice',q:'True or false — you can use arithmetic operators in both SELECT and WHERE.',opts:['True','False'],correct:0,fb:{correct:{t:"True!",b:"Arithmetic works in SELECT to create calculated columns, and in WHERE to filter by calculated values. Both are valid and very commonly used."},wrong:{t:"Actually True!",b:"You can use arithmetic in SELECT — SELECT rental_rate * 2 — and in WHERE — WHERE rental_rate * 2 > 5. Both work perfectly."}}}
+        ]
+      },
+      {
+        title:"AND & OR",
+        msg:"You can now filter by multiple conditions at once. AND and OR are how you build powerful, precise queries.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">🔗</div>
+              <div class="story-title">Multiple filters — just like Amazon.</div>
+              <div class="story-body">
+                On Amazon you can filter by multiple things at once:<br><br>
+                Price under ₹500 <strong>AND</strong> Rating above 4 stars — both must be true.<br>
+                Brand Nike <strong>OR</strong> Brand Adidas — either one can be true.<br><br>
+                SQL works the same way:<br><br>
+                <strong>AND</strong> — both conditions must be true for a row to appear.<br>
+                <strong>OR</strong> — either condition being true is enough.<br><br>
+                <div class="code-block"><span class="kw">SELECT</span> * <span class="kw">FROM</span> film <span class="kw">WHERE</span> rental_rate < <span class="val">3</span> <span class="kw">AND</span> rating = <span class="val">'G'</span></div>
+                This returns only films that are BOTH cheap AND G-rated.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Let me try →</button>
+          `},
+          {type:'choice',q:'You want G-rated films AND films with a rental rate less than 3. Which query is correct?',opts:["SELECT * FROM film WHERE rating = 'G' OR rental_rate < 3","SELECT * FROM film WHERE rating = 'G' AND rental_rate < 3","SELECT * FROM film WHERE rating = 'G', rental_rate < 3","SELECT * FROM film WHERE rating = 'G' rental_rate < 3"],correct:1,fb:{correct:{t:"Yes! AND means both must be true.",b:"AND combines two conditions — both must be satisfied. A film must be G-rated AND have a rental rate less than 3 to appear in the results."},wrong:{t:"Think about both must be true",b:"AND means both conditions must be true. WHERE rating = 'G' AND rental_rate < 3 returns only films that satisfy both conditions."}}},
+          {type:'choice',q:'You want films that are EITHER G-rated OR have a rental rate less than 1. Which operator do you use?',opts:['AND','OR','NOT','BOTH'],correct:1,fb:{correct:{t:"OR — either condition is enough.",b:"OR means at least one condition must be true. A film with rating G but rental rate 4.99 would still appear because it satisfies the OR condition."},wrong:{t:"Think about either one being enough",b:"OR means at least one condition must be true. WHERE rating = 'G' OR rental_rate < 1 returns films where either the rating is G or the rental rate is less than 1."}}},
+          {type:'choice',q:"SELECT * FROM film WHERE rating = 'G' AND rental_rate < 1. A film is rated G but has a rental rate of 2.99. Does it appear in the results?",opts:['Yes — it is G-rated so it qualifies','No — AND means BOTH conditions must be true','Yes — rental_rate is close to 1','Depends on other columns'],correct:1,fb:{correct:{t:"Correct! AND is strict.",b:"AND requires BOTH conditions to be true. This film is G-rated (condition 1 satisfied) but rental_rate is 2.99, not less than 1 (condition 2 not satisfied). So it does not appear."},wrong:{t:"AND means both — no exceptions",b:"AND requires every condition to be satisfied. This film passes the rating check but fails the rental_rate check. With AND, failing one condition means the row does not appear."}}},
+          {type:'choice',q:"SELECT * FROM film WHERE rating = 'G' OR rental_rate < 1. A film is rated PG but has a rental rate of 0.99. Does it appear?",opts:['No — it is not G-rated','Yes — rental rate is less than 1 so it qualifies','No — neither condition is fully met','Only if all other conditions match'],correct:1,fb:{correct:{t:"Yes! OR is generous.",b:"OR only needs one condition to be true. This film is not G-rated (condition 1 fails) but rental_rate is 0.99 which is less than 1 (condition 2 passes). One passing condition is enough with OR."},wrong:{t:"OR only needs one condition to pass",b:"With OR, if ANY one condition is true, the row appears. rental_rate = 0.99 is less than 1, so this film qualifies — even though it is not G-rated."}}},
+          {type:'choice',q:"You want films that are either rated G or rated PG. Which query is correct?",opts:["SELECT * FROM film WHERE rating = 'G' AND rating = 'PG'","SELECT * FROM film WHERE rating = 'G' OR rating = 'PG'","SELECT * FROM film WHERE rating IN 'G','PG'","SELECT * FROM film WHERE rating = 'G,PG'"],correct:1,fb:{correct:{t:"Yes! OR between two conditions.",b:"SELECT * FROM film WHERE rating = 'G' OR rating = 'PG' — returns films that are either G or PG rated. Either condition being true is enough."},wrong:{t:"Use OR between the two conditions",b:"Each rating needs its own condition. WHERE rating = 'G' OR rating = 'PG' checks each one separately."}}},
+          {type:'choice',q:'You have three conditions: A AND B OR C. Which is evaluated first?',opts:['A first, then B, then C in order','AND is evaluated before OR','OR is evaluated before AND','All three at the same time'],correct:1,fb:{correct:{t:"AND before OR — always.",b:"SQL follows operator precedence — AND is evaluated before OR. A AND B OR C means (A AND B) OR C. Use brackets to control the order when needed."},wrong:{t:"Think about operator precedence",b:"AND has higher precedence than OR — it is evaluated first. A AND B OR C means (A AND B) OR C. If you want A AND (B OR C), use brackets."}}},
+          {type:'fill',q:'Complete this query to find films that are rated G AND have a length greater than 100 minutes.',template:"SELECT * FROM film WHERE rating = 'G' ___ length > 100",answer:'AND',fb:{correct:{t:"Correct!",b:"AND combines both conditions — the film must be G-rated AND longer than 100 minutes. Both must be true for the row to appear."},wrong:{t:"The keyword you need is AND",b:"AND means both conditions must be satisfied. WHERE rating = 'G' AND length > 100."}}},
+          {type:'choice',q:'Which query finds films that are cheap (rental_rate < 1) OR long (length > 150)?',opts:["SELECT * FROM film WHERE rental_rate < 1 AND length > 150","SELECT * FROM film WHERE rental_rate < 1 OR length > 150","SELECT * FROM film WHERE rental_rate < 1, length > 150","SELECT * FROM film WHERE rental_rate < 1 NOT length > 150"],correct:1,fb:{correct:{t:"Yes!",b:"OR means either condition is enough. A film with rental_rate = 0.99 and length = 90 qualifies because rental_rate < 1 is true, even though length is not > 150."},wrong:{t:"Think about either one being enough",b:"OR returns rows where at least one condition is true. WHERE rental_rate < 1 OR length > 150 returns films that are cheap, long, or both."}}}
+        ]
+      },
+      {
+        title:"NOT & Combining Operators",
+        msg:"NOT gives you the power to exclude. And brackets give you full control over complex conditions.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">🚫</div>
+              <div class="story-title">NOT — the reverse switch.</div>
+              <div class="story-body">
+                On Amazon — sometimes you want to EXCLUDE something. Show me everything EXCEPT sold out items.<br><br>
+                NOT does exactly that in SQL. It reverses the condition.<br><br>
+                <code>WHERE NOT rating = 'G'</code> — everything except G-rated films.<br><br>
+                And when you combine AND, OR, and NOT — <strong>brackets control which condition is evaluated first.</strong><br><br>
+                <div class="code-block"><span class="kw">WHERE</span> (rating = <span class="val">'G'</span> <span class="kw">OR</span> rating = <span class="val">'PG'</span>) <span class="kw">AND</span> rental_rate < <span class="val">3</span></div>
+                The brackets make the OR happen first — then AND is applied to the result.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Got it →</button>
+          `},
+          {type:'choice',q:"What does WHERE NOT rating = 'G' return?",opts:["Only G-rated films","All films except G-rated films","Films where rating is NULL","An error — NOT cannot be used with ="],correct:1,fb:{correct:{t:"Yes! NOT reverses the condition.",b:"NOT flips the result. NOT rating = 'G' means give me everything where rating is NOT G. PG, PG-13, R, NC-17 would all appear."},wrong:{t:"NOT reverses whatever comes after it",b:"NOT reverses the condition. WHERE NOT rating = 'G' returns all films where the rating is anything other than G."}}},
+          {type:'choice',q:"WHERE rating = 'G' OR rating = 'PG' AND rental_rate < 3. Without brackets, which is evaluated first?",opts:['The OR — left to right','The AND — AND has higher precedence','Both at the same time','Depends on the database'],correct:1,fb:{correct:{t:"AND first — always.",b:"AND has higher precedence than OR. So this reads as: rating = 'G' OR (rating = 'PG' AND rental_rate < 3). G-rated films at any price, plus PG films under 3."},wrong:{t:"Remember operator precedence",b:"AND is always evaluated before OR. Without brackets: rating = 'G' OR (rating = 'PG' AND rental_rate < 3). Add brackets to change the order."}}},
+          {type:'choice',q:"You want films that are (G OR PG rated) AND cheap (rental_rate < 3). Which query is correct?",opts:["SELECT * FROM film WHERE rating = 'G' OR rating = 'PG' AND rental_rate < 3","SELECT * FROM film WHERE (rating = 'G' OR rating = 'PG') AND rental_rate < 3","SELECT * FROM film WHERE rating = 'G' OR (rating = 'PG' AND rental_rate < 3)","SELECT * FROM film WHERE rating = 'G' AND rating = 'PG' OR rental_rate < 3"],correct:1,fb:{correct:{t:"Brackets change everything!",b:"(rating = 'G' OR rating = 'PG') AND rental_rate < 3 — the brackets force OR to be evaluated first, giving you all G and PG films, then AND filters to only the cheap ones."},wrong:{t:"Use brackets to control the order",b:"Without brackets, AND runs first. To get (G or PG) AND cheap, you need brackets: (rating = 'G' OR rating = 'PG') AND rental_rate < 3."}}},
+          {type:'drag',q:"Build a query to find films that are NOT rated R.",words:['*','SELECT','film','FROM','WHERE','NOT','rating = R'],correct:['SELECT','*','FROM','film','WHERE','NOT','rating = R'],fb:{correct:{t:"Yes!",b:"SELECT * FROM film WHERE NOT rating = R returns all films where the rating is anything other than R. NOT simply reverses the condition."},wrong:{t:"NOT goes right after WHERE",b:"SELECT * FROM film WHERE NOT rating = R. NOT comes after WHERE and before the condition it reverses."}}},
+          {type:'fill',q:"Complete this query to find films that are not G-rated and not PG-rated.",template:"SELECT * FROM film WHERE NOT rating = 'G' ___ NOT rating = 'PG'",answer:'AND',fb:{correct:{t:"Correct!",b:"AND means both NOT conditions must be satisfied. The film must be not G AND not PG — so only R, PG-13, and NC-17 films appear."},wrong:{t:"Think about both exclusions applying",b:"You want to exclude both G and PG. NOT rating = 'G' AND NOT rating = 'PG' — AND ensures both exclusions apply."}}},
+          {type:'choice',q:"A film is G-rated with rental_rate = 3.99. Does it appear in: WHERE (rating = 'G' OR rating = 'PG') AND rental_rate < 3?",opts:['Yes — it is G-rated','No — rental_rate is 3.99 which is not less than 3','Yes — G-rated films always qualify','Depends on the film length'],correct:1,fb:{correct:{t:"No — AND is strict.",b:"The brackets make (G OR PG) one condition. The film passes that — it is G-rated. But AND requires rental_rate < 3 to also be true. 3.99 is not less than 3. So this film does not appear."},wrong:{t:"AND requires both sides to be true",b:"Even though the film is G-rated (first condition passes), rental_rate = 3.99 fails the second condition (< 3). With AND, both must pass."}}},
+          {type:'choice',q:'True or false — brackets in SQL WHERE clauses change the order conditions are evaluated.',opts:['True','False'],correct:0,fb:{correct:{t:"True — brackets are powerful!",b:"Just like in maths, brackets in SQL force certain conditions to be evaluated first. Always use brackets when you have mixed AND and OR conditions to make your intention clear."},wrong:{t:"Actually True!",b:"Brackets change evaluation order in SQL just like in maths. (A OR B) AND C is different from A OR (B AND C). Use brackets to be explicit."}}},
+          {type:'choice',q:"Which query finds films that are expensive (rental_rate > 4) but NOT NC-17 rated?",opts:["SELECT * FROM film WHERE rental_rate > 4 AND rating = 'NC-17'","SELECT * FROM film WHERE rental_rate > 4 OR NOT rating = 'NC-17'","SELECT * FROM film WHERE rental_rate > 4 AND NOT rating = 'NC-17'","SELECT * FROM film WHERE NOT rental_rate > 4 AND rating = 'NC-17'"],correct:2,fb:{correct:{t:"Perfect!",b:"rental_rate > 4 AND NOT rating = 'NC-17' — expensive films that are also not NC-17 rated. AND ensures both conditions must be satisfied."},wrong:{t:"You need AND with NOT",b:"WHERE rental_rate > 4 AND NOT rating = 'NC-17' — the film must be expensive AND must not be NC-17 rated. AND combines both requirements."}}}
+        ]
+      },
+      {
+        title:"IN, BETWEEN & LIKE",
+        msg:"IN, BETWEEN, and LIKE make your queries shorter, cleaner, and more readable. These are your shortcuts.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">🎯</div>
+              <div class="story-title">Shortcuts that make your queries cleaner.</div>
+              <div class="story-body">
+                Instead of writing long chains of OR conditions, SQL gives you shortcuts:<br><br>
+                <strong>IN</strong> — match a list of values<br>
+                <div class="code-block"><span class="kw">WHERE</span> rating <span class="kw">IN</span> (<span class="val">'G'</span>, <span class="val">'PG'</span>, <span class="val">'PG-13'</span>)</div>
+                Much cleaner than: WHERE rating = 'G' OR rating = 'PG' OR rating = 'PG-13'<br><br>
+                <strong>BETWEEN</strong> — a range of values (inclusive)<br>
+                <div class="code-block"><span class="kw">WHERE</span> rental_rate <span class="kw">BETWEEN</span> <span class="val">1</span> <span class="kw">AND</span> <span class="val">3</span></div>
+                Same as: WHERE rental_rate >= 1 AND rental_rate <= 3<br><br>
+                <strong>LIKE</strong> — pattern matching<br>
+                <div class="code-block"><span class="kw">WHERE</span> title <span class="kw">LIKE</span> <span class="val">'A%'</span></div>
+                The % wildcard means anything. So A% means starts with A.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Got it →</button>
+          `},
+          {type:'choice',q:"You want films rated G, PG, or PG-13. Which is the cleanest way to write this?",opts:["WHERE rating = 'G', 'PG', 'PG-13'","WHERE rating IN ('G', 'PG', 'PG-13')","WHERE rating BETWEEN 'G' AND 'PG-13'","WHERE rating = ('G', 'PG', 'PG-13')"],correct:1,fb:{correct:{t:"IN is the clean way!",b:"IN lets you match a list of values in one go. WHERE rating IN ('G', 'PG', 'PG-13') is much more readable than three separate OR conditions."},wrong:{t:"IN is the shortcut for multiple values",b:"WHERE rating IN ('G', 'PG', 'PG-13') checks if rating matches any value in the list. You cannot use commas after = or put values in brackets after =."}}},
+          {type:'choice',q:'You want films with rental rate between 1.99 and 3.99. Does BETWEEN include the boundary values?',opts:['No — BETWEEN excludes the boundaries','Yes — BETWEEN is inclusive of both values','Only the lower boundary is included','Only the upper boundary is included'],correct:1,fb:{correct:{t:"Yes — BETWEEN is inclusive!",b:"WHERE rental_rate BETWEEN 1.99 AND 3.99 includes films with rental_rate = 1.99 and rental_rate = 3.99. Both boundaries are included."},wrong:{t:"BETWEEN includes both boundaries",b:"BETWEEN is inclusive — it includes the boundary values. BETWEEN 1.99 AND 3.99 is the same as >= 1.99 AND <= 3.99."}}},
+          {type:'fill',q:"Complete this query to find films with rental rate between 2 and 4.",template:'SELECT * FROM film WHERE rental_rate ___ 2 AND 4',answer:'BETWEEN',fb:{correct:{t:"BETWEEN 2 AND 4 — clean and readable!",b:"BETWEEN 2 AND 4 returns films with rental rate from 2 to 4, including both endpoints. Same as rental_rate >= 2 AND rental_rate <= 4."},wrong:{t:"The keyword you need is BETWEEN",b:"WHERE rental_rate BETWEEN 2 AND 4 returns films with rental rate from 2 to 4, including both 2 and 4."}}},
+          {type:'choice',q:"WHERE title LIKE 'A%' returns which films?",opts:['Films where title contains the letter A anywhere','Films where title starts with A','Films where title ends with A','Films where title is exactly A'],correct:1,fb:{correct:{t:"% means anything after A!",b:"In LIKE, % is a wildcard that matches anything. 'A%' means starts with A, then anything can follow. 'Academy%', 'Ace%' — all would match."},wrong:{t:"Think about where the % is placed",b:"'A%' means A followed by anything. The % is at the end, so the title must start with A. '%A' would mean ends with A. '%A%' would mean contains A anywhere."}}},
+          {type:'choice',q:"WHERE title LIKE '%love%' returns which films?",opts:['Films starting with love','Films ending with love','Films containing love anywhere in the title','Films where title is exactly love'],correct:2,fb:{correct:{t:"% on both sides means contains!",b:"'%love%' means anything, then love, then anything. The % wildcards on both sides mean love can appear anywhere in the title."},wrong:{t:"Think about where the wildcards are",b:"% before and after love means love can appear anywhere in the title. '%love%' matches 'Beloved', 'Lovelace', 'My Love Story' — all of them."}}},
+          {type:'choice',q:"You want to find customers whose last name starts with S. Which LIKE pattern do you use?",opts:["LIKE 'S'","LIKE '%S'","LIKE 'S%'","LIKE '%S%'"],correct:2,fb:{correct:{t:"S% means starts with S!",b:"'S%' means S followed by anything. WHERE last_name LIKE 'S%' returns Smith, Stone, Singh — any last name starting with S."},wrong:{t:"Think about where to put the wildcard",b:"To match starts with S, put % after S. 'S%' means S then anything. '%S' would mean ends with S. '%S%' would mean contains S."}}},
+          {type:'choice',q:"NOT IN works the opposite of IN. What does WHERE rating NOT IN ('G', 'PG') return?",opts:['Only G and PG films','Films that are not G and not PG','An error — NOT IN is not valid SQL','Films where rating is NULL'],correct:1,fb:{correct:{t:"NOT IN excludes the list!",b:"NOT IN returns rows where the value does not match any item in the list. WHERE rating NOT IN ('G', 'PG') returns PG-13, R, and NC-17 films."},wrong:{t:"NOT IN is the opposite of IN",b:"WHERE rating NOT IN ('G', 'PG') excludes G and PG films. Only PG-13, R, and NC-17 films would appear."}}},
+          {type:'drag',q:"Build a query to find films with length between 60 and 90 minutes.",words:['*','SELECT','film','FROM','WHERE','length','BETWEEN','60 AND 90'],correct:['SELECT','*','FROM','film','WHERE','length','BETWEEN','60 AND 90'],fb:{correct:{t:"Great!",b:"SELECT * FROM film WHERE length BETWEEN 60 AND 90 returns films between 60 and 90 minutes long, including both endpoints."},wrong:{t:"Remember: column BETWEEN lower AND upper",b:"SELECT * FROM film WHERE length BETWEEN 60 AND 90. BETWEEN goes after the column name."}}}
+        ]
+      },
+      {
+        title:"IS NULL & IS NOT NULL",
+        msg:"NULL is one of the trickiest things in SQL. You now know how to handle it correctly — most people get this wrong.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">❓</div>
+              <div class="story-title">NULL — the most misunderstood thing in SQL.</div>
+              <div class="story-body">
+                NULL means <strong>no value</strong>. Not zero. Not an empty string. Nothing.<br><br>
+                Think of it like a form where someone left a field blank. The field exists — but there is nothing in it.<br><br>
+                <strong>The most important rule about NULL:</strong><br>
+                You cannot use = to check for NULL.<br><br>
+                <code>WHERE email = NULL</code> — this will NOT work.<br><br>
+                You must use:<br>
+                <code>WHERE email IS NULL</code> — finds rows with no email<br>
+                <code>WHERE email IS NOT NULL</code> — finds rows that have an email<br><br>
+                This trips up almost every beginner. Now you know.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Got it →</button>
+          `},
+          {type:'choice',q:'What does NULL mean in SQL?',opts:['The number zero','An empty string with no characters','No value — the field is completely empty','The word NULL as text'],correct:2,fb:{correct:{t:"Correct!",b:"NULL means the absence of any value. It is not 0, not an empty string — it is nothing. A field that was never filled in."},wrong:{t:"NULL is not zero or empty string",b:"NULL means no value at all — the field is blank. 0 is a number. An empty string is still a string. NULL is the complete absence of data."}}},
+          {type:'choice',q:'Which query correctly finds customers with no email address?',opts:['WHERE email = NULL','WHERE email == NULL','WHERE email IS NULL','WHERE email = NOTHING'],correct:2,fb:{correct:{t:"IS NULL is the only correct way!",b:"You cannot use = with NULL. SQL requires IS NULL to check for missing values. WHERE email IS NULL finds all rows where no email was provided."},wrong:{t:"Never use = with NULL",b:"= does not work with NULL in SQL. The correct syntax is IS NULL. WHERE email IS NULL is the only valid way to find missing values."}}},
+          {type:'fill',q:'Complete this query to find customers who DO have an email address.',template:'SELECT * FROM customer WHERE email IS ___ NULL',answer:'NOT',fb:{correct:{t:"IS NOT NULL — perfect!",b:"IS NOT NULL finds rows where a value exists. WHERE email IS NOT NULL returns only customers who have provided an email address."},wrong:{t:"The missing word is NOT",b:"IS NOT NULL checks that a value exists. WHERE email IS NOT NULL returns customers who have an email."}}},
+          {type:'choice',q:"A customer record has email = '' (empty string). Does WHERE email IS NULL find this customer?",opts:['Yes — empty string is the same as NULL','No — empty string and NULL are different things','Yes — both mean no email was provided','Depends on the database'],correct:1,fb:{correct:{t:"Correct — they are different!",b:"An empty string '' is still a value — just a string with nothing in it. NULL means no value at all. IS NULL will NOT find rows with empty strings. You would need WHERE email = '' for that."},wrong:{t:"Empty string and NULL are not the same",b:"'' is an empty string — a value that exists but has no characters. NULL means no value at all. IS NULL only finds actual NULLs, not empty strings."}}},
+          {type:'choice',q:'True or false — WHERE age = NULL is valid SQL and returns rows where age is missing.',opts:['True — = works for everything','False — you must use IS NULL'],correct:1,fb:{correct:{t:"False — IS NULL is required!",b:"= NULL is never valid in SQL. NULL cannot be compared with = because NULL is not equal to anything — not even itself. Always use IS NULL."},wrong:{t:"Actually False!",b:"= does not work with NULL. WHERE age = NULL will return no results — not an error, just nothing. You must use WHERE age IS NULL."}}},
+          {type:'choice',q:'You want to find all films that have a value in the description column. Which query is correct?',opts:['SELECT * FROM film WHERE description = NULL','SELECT * FROM film WHERE description IS NULL','SELECT * FROM film WHERE description IS NOT NULL','SELECT * FROM film WHERE description != NULL'],correct:2,fb:{correct:{t:"IS NOT NULL — yes!",b:"IS NOT NULL finds rows where a value exists. WHERE description IS NOT NULL returns only films that have a description written."},wrong:{t:"To find rows WITH values, use IS NOT NULL",b:"IS NOT NULL means the field has a value. WHERE description IS NOT NULL returns films where description is filled in."}}},
+          {type:'drag',q:'Build a query to find all rentals that have not been returned yet (return_date is NULL).',words:['*','SELECT','rental','FROM','WHERE','return_date','IS NULL'],correct:['SELECT','*','FROM','rental','WHERE','return_date','IS NULL'],fb:{correct:{t:"Perfect!",b:"SELECT * FROM rental WHERE return_date IS NULL finds all rentals where the movie has not been returned yet — the return date is missing."},wrong:{t:"IS NULL goes after the column name",b:"SELECT * FROM rental WHERE return_date IS NULL. IS NULL comes after the column name you are checking."}}},
+          {type:'choice',q:'Which of these correctly finds films where description is missing OR rating is missing?',opts:['WHERE description IS NULL OR rating IS NULL','WHERE description = NULL OR rating = NULL','WHERE description AND rating IS NULL','WHERE IS NULL description OR rating'],correct:0,fb:{correct:{t:"Yes!",b:"IS NULL works on each column separately. WHERE description IS NULL OR rating IS NULL returns films where either piece of information is missing."},wrong:{t:"Each column needs its own IS NULL check",b:"WHERE description IS NULL OR rating IS NULL — each column gets its own IS NULL check. You cannot combine them without repeating IS NULL."}}}
+        ]
+      }
     ]
   }
 ];
 
+let mistakeQueue=[];
+let inRetryMode=false;
 let act=null;
 
 function renderStep(){
-  const L=lessons[S.lesson],step=L.steps[S.step],total=L.steps.length;
-  document.getElementById('header-fill').style.width=Math.round((S.step/total)*100)+'%';
+  const mod=modules[S.currentMod];
+  const L=mod.lessons[S.currentLesson];
+  const step=L.steps[S.currentStep];
+  const total=L.steps.length;
+  document.getElementById('header-fill').style.width=Math.round((S.currentStep/total)*100)+'%';
   const body=document.getElementById('lesson-body');
-  let h=`<div class="lesson-tag">Module 1 · Lesson ${S.lesson+1}</div><div class="lesson-heading">${L.title}</div>`;
+  let h=`<div class="lesson-tag">Module ${S.currentMod+1} · Lesson ${S.currentLesson+1}</div><div class="lesson-heading">${L.title}</div>`;
+  if(inRetryMode){
+    h=`<div class="retry-banner"><span>🔁</span><span>You got this one wrong earlier — try it again!</span></div>`+h;
+  }
   if(step.type==='story'){body.innerHTML=h+step.render();return;}
   if(step.type==='choice'){
     h+=`<div class="activity-card"><div class="act-type">Choose the correct answer</div><div class="act-q">${step.q}</div><div class="options">${step.opts.map((o,i)=>`<button class="opt" onclick="chkChoice(${i})" id="op${i}"><span class="opt-ic" id="ic${i}">○</span>${o}</button>`).join('')}</div><div class="feedback" id="fb"></div></div><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
@@ -292,8 +560,6 @@ function renderStep(){
   }
 }
 
-let mistakeQueue=[];
-
 function chkChoice(idx){
   const step=act.step;
   document.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
@@ -304,11 +570,11 @@ function chkChoice(idx){
     document.getElementById('op'+step.correct).classList.add('correct');
     document.getElementById('op'+step.correct).classList.remove('disabled');
     document.getElementById('ic'+step.correct).textContent='✓';
-    if(!mistakeQueue.includes(S.step))mistakeQueue.push(S.step);
+    if(!mistakeQueue.includes(S.currentStep))mistakeQueue.push(S.currentStep);
   }
   showFb(ok,step.fb);if(ok)addXP(10);
   const nb=document.getElementById('bnext');
-  nb.textContent=ok?"Continue →":"Got it — I will try again →";
+  nb.textContent=ok?'Continue →':'Got it — I will try again →';
   nb.classList.add('show');
 }
 
@@ -328,9 +594,9 @@ function chkDrag(){
   document.getElementById('dzone').classList.add(ok?'correct-zone':'wrong-zone');
   document.querySelectorAll('.drag-word').forEach(e=>e.style.pointerEvents='none');
   document.querySelectorAll('.placed-word').forEach(e=>e.style.pointerEvents='none');
-  if(!ok && !mistakeQueue.includes(S.step))mistakeQueue.push(S.step);
+  if(!ok&&!mistakeQueue.includes(S.currentStep))mistakeQueue.push(S.currentStep);
   showFb(ok,step.fb);if(ok)addXP(15);
-  const nb=document.getElementById('bcheck');nb.style.display='none';
+  document.getElementById('bcheck').style.display='none';
   document.getElementById('bnext').classList.add('show');
 }
 
@@ -339,7 +605,7 @@ function onType(){document.getElementById('bcheck').disabled=!document.getElemen
 function chkFill(){
   const step=act.step,input=document.getElementById('fin'),ok=input.value.trim().toLowerCase()===step.answer.toLowerCase();
   input.classList.add(ok?'correct-input':'wrong-input');input.disabled=true;
-  if(!ok && !mistakeQueue.includes(S.step))mistakeQueue.push(S.step);
+  if(!ok&&!mistakeQueue.includes(S.currentStep))mistakeQueue.push(S.currentStep);
   showFb(ok,step.fb);if(ok)addXP(10);
   document.getElementById('bcheck').style.display='none';
   document.getElementById('bnext').classList.add('show');
@@ -353,17 +619,12 @@ function showFb(ok,fb){
 
 function addXP(n){S.sxp+=n;document.getElementById('session-xp').textContent=S.sxp;}
 
-let inRetryMode=false;
-let currentRetryStep=null;
-
 function nextStep(){
-  const L=lessons[S.lesson];
-
+  const mod=modules[S.currentMod];
+  const L=mod.lessons[S.currentLesson];
   if(inRetryMode){
     if(mistakeQueue.length>0){
-      currentRetryStep=mistakeQueue.shift();
-      S.step=currentRetryStep;
-      showRetryBanner();
+      S.currentStep=mistakeQueue.shift();
       renderStep();window.scrollTo(0,0);
     } else {
       inRetryMode=false;
@@ -371,43 +632,40 @@ function nextStep(){
     }
     return;
   }
-
-  S.step++;
-  if(S.step>=L.steps.length){
+  S.currentStep++;
+  if(S.currentStep>=L.steps.length){
     if(mistakeQueue.length>0){
       inRetryMode=true;
-      currentRetryStep=mistakeQueue.shift();
-      S.step=currentRetryStep;
-      showRetryBanner();
+      S.currentStep=mistakeQueue.shift();
       renderStep();window.scrollTo(0,0);
     } else {
       completeLesson();
     }
     return;
   }
-  document.getElementById('header-fill').style.width=Math.round((S.step/L.steps.length)*100)+'%';
+  document.getElementById('header-fill').style.width=Math.round((S.currentStep/L.steps.length)*100)+'%';
   renderStep();window.scrollTo(0,0);
 }
 
-function showRetryBanner(){
-  const body=document.getElementById('lesson-body');
-  const banner=document.createElement('div');
-  banner.style.cssText='background:#fff3cd;border:1.5px solid #ffc107;border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;font-weight:700;color:#856404;display:flex;gap:10px;align-items:center;';
-  banner.innerHTML="<span>🔁</span><span>You got this one wrong earlier — try this one again!</span>";
-  body.insertBefore(banner,body.firstChild);
-}
-
 function completeLesson(){
-  S.xp+=S.sxp;S.done=Math.min(S.done+1,lessons.length);
-  localStorage.setItem('sq_xp',S.xp);localStorage.setItem('sq_done',S.done);
+  S.xp+=S.sxp;
+  S.totalDone++;
+  S.modDone[S.currentMod]=(S.modDone[S.currentMod]||0)+1;
+  localStorage.setItem('sq_xp',S.xp);
+  localStorage.setItem('sq_total_done',S.totalDone);
+  localStorage.setItem('sq_mod_done',JSON.stringify(S.modDone));
   document.getElementById('earned-val').textContent='+'+S.sxp;
-  document.getElementById('complete-msg').textContent=lessons[S.lesson].msg;
+  document.getElementById('complete-msg').textContent=modules[S.currentMod].lessons[S.currentLesson].msg;
   updateHome();show('complete');
 }
 
 function startLesson(){
-  S.lesson=S.done<lessons.length?S.done:0;S.step=0;S.sxp=0;
-  mistakeQueue=[];inRetryMode=false;currentRetryStep=null;
+  const mod=modules[S.currentMod];
+  const nextLesson=S.modDone[S.currentMod]||0;
+  if(nextLesson>=mod.lessons.length){S.currentLesson=0;}
+  else{S.currentLesson=nextLesson;}
+  S.currentStep=0;S.sxp=0;
+  mistakeQueue=[];inRetryMode=false;
   document.getElementById('session-xp').textContent='0';
   show('lesson');renderStep();
 }
@@ -415,26 +673,58 @@ function startLesson(){
 function goHome(){updateHome();show('home');}
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 
+function renderModuleTabs(){
+  const tabs=document.getElementById('module-tabs');
+  tabs.innerHTML=modules.map((m,i)=>`<div class="module-tab${i===S.currentMod?' active':''}" onclick="selectMod(${i})">${i+1}. ${m.name}</div>`).join('');
+}
+
+function selectMod(idx){
+  S.currentMod=idx;
+  renderModuleTabs();
+  renderModuleCard();
+}
+
+function renderModuleCard(){
+  const mod=modules[S.currentMod];
+  const done=S.modDone[S.currentMod]||0;
+  const pct=Math.round((done/mod.lessons.length)*100);
+  document.getElementById('mod-progress-label').textContent=`Module ${S.currentMod+1} progress`;
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('progress-pct').textContent=pct+'%';
+  const lessonsHTML=mod.lessons.map((l,i)=>{
+    const isDone=i<done;
+    return `<div class="lesson-row">
+      <div class="lesson-dot${isDone?' done':''}">${isDone?'✓':i+1}</div>
+      <div class="lesson-name">${l.title}</div>
+      <div class="lesson-meta">${isDone?'Done ✓':l.steps.length+' activities'}</div>
+    </div>`;
+  }).join('');
+  const allDone=done>=mod.lessons.length;
+  document.getElementById('module-card').innerHTML=`
+    <div class="module-tag">📦 Module ${S.currentMod+1}</div>
+    <div class="module-name">${mod.name}</div>
+    <div class="module-desc">${mod.desc}</div>
+    <div class="lesson-list">${lessonsHTML}</div>
+    <button class="btn-start" id="btn-start" onclick="startLesson()" ${allDone?'disabled':''}>
+      ${allDone?'Module complete! 🎉':done>0?'Continue →':"Let us go →"}
+    </button>
+  `;
+}
+
 function updateHome(){
   document.getElementById('xp-display').textContent=S.xp;
   document.getElementById('streak-display').textContent=S.streak+'🔥';
-  document.getElementById('done-display').textContent=S.done+'/3';
-  const pct=Math.round((S.done/lessons.length)*100);
-  document.getElementById('progress-bar').style.width=pct+'%';
-  document.getElementById('progress-pct').textContent=pct+'%';
-  for(let i=0;i<3;i++){
-    const d=document.getElementById('dot-'+i),m=document.getElementById('meta-'+i);
-    if(i<S.done){d.classList.add('done');d.textContent='✓';m.textContent='Done ✓';}
-    else{d.classList.remove('done');d.textContent=i+1;m.textContent=['8 activities','9 activities','8 activities'][i];}
-  }
-  const btn=document.getElementById('btn-start');
-  if(S.done>=lessons.length){btn.textContent='Module complete! 🎉';btn.disabled=true;}
-  else if(S.done>0){btn.textContent='Continue →';btn.disabled=false;}
-  else{btn.textContent="Let's go →";btn.disabled=false;}
+  document.getElementById('done-display').textContent=S.totalDone;
+  renderModuleTabs();
+  renderModuleCard();
 }
 
 updateHome();
-setTimeout(()=>{document.getElementById('progress-bar').style.width=Math.round((S.done/lessons.length)*100)+'%';},300);
+setTimeout(()=>{
+  const done=S.modDone[S.currentMod]||0;
+  const pct=Math.round((done/modules[S.currentMod].lessons.length)*100);
+  document.getElementById('progress-bar').style.width=pct+'%';
+},300);
 </script>
 </body>
 </html>
