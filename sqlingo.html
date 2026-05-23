@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SQLingo — Learn SQL Like a Language</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --teal:#0D9488;--teal-light:#E1F5EE;--teal-mid:#5DCAA5;--teal-dark:#085041;--teal-deep:#0F6E56;
+  --bg:#f7faf9;--surface:#ffffff;--surface2:#f0f7f5;--border:#d1e8e2;
+  --text:#1a2e2a;--muted:#5a7a72;--muted-light:#8faaa4;
+  --correct-bg:#E1F5EE;--correct-border:#5DCAA5;--correct-text:#085041;
+  --wrong-bg:#fff0f0;--wrong-border:#f5a0a0;--wrong-text:#8b2020;
+  --radius:14px;--radius-sm:8px;
+}
+html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.6;}
+.screen{display:none;min-height:100vh;flex-direction:column;background:#f7faf9;}
+.screen.active{display:flex;}
+#home{padding:32px 24px 48px;align-items:center;}
+.wordmark{font-size:36px;font-weight:800;color:var(--teal);letter-spacing:-1px;margin-bottom:4px;text-align:center;}
+.wordmark span{color:var(--teal-dark);}
+.tagline{font-size:14px;color:var(--muted);margin-bottom:32px;text-align:center;font-weight:500;}
+.stats-row{display:flex;gap:12px;width:100%;max-width:400px;margin-bottom:24px;}
+.stat-card{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 10px;text-align:center;}
+.stat-val{font-size:22px;font-weight:800;color:var(--teal);}
+.stat-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
+.progress-wrap{width:100%;max-width:400px;margin-bottom:28px;}
+.progress-label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+.progress-track{height:10px;background:var(--teal-light);border-radius:100px;overflow:hidden;}
+.progress-bar{height:100%;background:var(--teal);border-radius:100px;transition:width 1s ease;width:0%;}
+.module-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;max-width:400px;width:100%;margin-bottom:16px;}
+.module-tag{display:inline-flex;align-items:center;gap:6px;background:var(--teal-light);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--teal-deep);margin-bottom:14px;}
+.module-name{font-size:20px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.module-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.lesson-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.lesson-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border);}
+.lesson-dot{width:28px;height:28px;border-radius:50%;background:var(--teal-light);border:1.5px solid var(--teal-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--teal-deep);flex-shrink:0;}
+.lesson-dot.done{background:var(--teal);border-color:var(--teal-dark);color:white;}
+.lesson-name{font-size:14px;font-weight:600;color:var(--text);}
+.lesson-meta{margin-left:auto;font-size:11px;color:var(--muted-light);font-weight:600;}
+.btn-start{width:100%;padding:16px;background:var(--teal);color:white;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
+.btn-start:hover{background:var(--teal-deep);}
+.btn-start:disabled{background:var(--border);color:var(--muted-light);cursor:not-allowed;}
+#lesson{padding:0;}
+.lesson-header{background:var(--surface);border-bottom:1.5px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:10;}
+.btn-back{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:2px 6px;border-radius:6px;}
+.btn-back:hover{background:var(--surface2);}
+.header-track{flex:1;height:8px;background:var(--teal-light);border-radius:100px;overflow:hidden;}
+.header-fill{height:100%;background:var(--teal);border-radius:100px;transition:width 0.5s ease;}
+.xp-chip{background:var(--teal-light);border-radius:100px;padding:5px 12px;font-size:13px;font-weight:800;color:var(--teal-deep);white-space:nowrap;}
+.lesson-body{flex:1;padding:24px 20px 40px;max-width:520px;margin:0 auto;width:100%;}
+.lesson-tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;}
+.lesson-heading{font-size:26px;font-weight:800;color:var(--text);margin-bottom:28px;line-height:1.2;}
+.story-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:20px;}
+.story-emoji{font-size:36px;margin-bottom:14px;}
+.story-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:10px;}
+.story-body{font-size:15px;color:var(--muted);line-height:1.7;}
+.story-body strong{color:var(--text);font-weight:700;}
+.story-body code{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--teal);background:var(--teal-light);padding:2px 7px;border-radius:5px;}
+.table-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+.table-chip{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;}
+.tci{font-size:18px;margin-bottom:4px;}
+.tcn{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--teal);font-weight:600;}
+.tcd{font-size:11px;color:var(--muted);margin-top:2px;}
+.activity-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px;}
+.act-type{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:10px;}
+.act-q{font-size:16px;color:var(--text);line-height:1.6;margin-bottom:20px;font-weight:600;}
+.options{display:flex;flex-direction:column;gap:10px;}
+.opt{padding:14px 16px;background:var(--surface2);border:2px solid var(--border);border-radius:var(--radius);font-size:15px;color:var(--text);cursor:pointer;transition:all 0.18s;text-align:left;font-family:'Nunito',sans-serif;font-weight:600;display:flex;align-items:center;gap:10px;}
+.opt:hover{border-color:var(--teal);background:var(--teal-light);}
+.opt.correct{border-color:var(--correct-border) !important;background:var(--correct-bg) !important;color:var(--correct-text) !important;}
+.opt.wrong{border-color:var(--wrong-border) !important;background:var(--wrong-bg) !important;color:var(--wrong-text) !important;}
+.opt.disabled{pointer-events:none;opacity:0.5;}
+.opt.disabled.correct{opacity:1;}
+.opt-ic{font-size:15px;flex-shrink:0;}
+.drop-zone{min-height:54px;border:2px dashed var(--border);border-radius:var(--radius);padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;transition:border-color 0.2s;background:var(--surface2);}
+.drop-zone.correct-zone{border-color:var(--correct-border);background:var(--correct-bg);}
+.drop-zone.wrong-zone{border-color:var(--wrong-border);background:var(--wrong-bg);}
+.zone-hint{font-size:13px;color:var(--muted-light);font-weight:600;}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.drag-word{padding:8px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--text);cursor:pointer;user-select:none;transition:all 0.15s;font-weight:600;}
+.drag-word:hover{border-color:var(--teal);background:var(--teal-light);transform:translateY(-2px);}
+.drag-word.used{opacity:0.25;pointer-events:none;}
+.placed-word{padding:6px 12px;background:var(--teal-light);border:1.5px solid var(--teal-mid);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--teal-deep);cursor:pointer;font-weight:600;}
+.code-template{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:14px;line-height:1.8;}
+.blank-span{display:inline-block;min-width:90px;border-bottom:2.5px solid var(--teal);color:var(--teal);text-align:center;font-weight:700;}
+.fill-input{width:100%;padding:13px 16px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--text);outline:none;transition:border-color 0.2s;font-weight:600;}
+.fill-input:focus{border-color:var(--teal);}
+.fill-input.correct-input{border-color:var(--correct-border);background:var(--correct-bg);color:var(--correct-text);}
+.fill-input.wrong-input{border-color:var(--wrong-border);background:var(--wrong-bg);color:var(--wrong-text);}
+.feedback{border-radius:var(--radius);padding:16px 18px;margin-top:14px;display:none;gap:12px;align-items:flex-start;}
+.feedback.show{display:flex;}
+.feedback.correct-fb{background:var(--correct-bg);border:1.5px solid var(--correct-border);}
+.feedback.wrong-fb{background:var(--wrong-bg);border:1.5px solid var(--wrong-border);}
+.fb-icon{font-size:20px;flex-shrink:0;}
+.fb-title{font-size:14px;font-weight:800;margin-bottom:3px;}
+.feedback.correct-fb .fb-title{color:var(--correct-text);}
+.feedback.wrong-fb .fb-title{color:var(--wrong-text);}
+.fb-body{font-size:13px;line-height:1.6;color:var(--muted);}
+.fb-body code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--teal-light);color:var(--teal-deep);padding:1px 6px;border-radius:4px;}
+.btn-check{width:100%;padding:15px;background:var(--teal);color:white;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;border-radius:var(--radius);cursor:pointer;margin-top:16px;transition:all 0.2s;display:none;}
+.btn-check.show{display:block;}
+.btn-check:hover{background:var(--teal-deep);}
+.btn-check:disabled{background:var(--border);color:var(--muted-light);cursor:not-allowed;}
+.btn-next{width:100%;padding:15px;background:white;color:var(--teal);border:2px solid var(--teal);font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border-radius:var(--radius);cursor:pointer;margin-top:10px;transition:all 0.2s;display:none;}
+.btn-next.show{display:block;}
+.btn-next:hover{background:var(--teal-light);}
+.btn-continue{width:100%;padding:15px;background:var(--surface2);color:var(--muted);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border-radius:var(--radius);cursor:pointer;margin-top:16px;transition:all 0.2s;}
+.btn-continue:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal-deep);}
+#complete{align-items:center;justify-content:center;padding:48px 24px;text-align:center;}
+.complete-emoji{font-size:72px;margin-bottom:20px;animation:pop 0.5s ease;}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.complete-title{font-size:32px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.complete-sub{font-size:16px;color:var(--muted);margin-bottom:36px;max-width:300px;line-height:1.6;}
+.xp-earned-card{background:var(--teal-light);border:1.5px solid var(--teal-mid);border-radius:20px;padding:28px;max-width:300px;width:100%;margin:0 auto 28px;}
+.xp-earned-val{font-size:52px;font-weight:800;color:var(--teal);}
+.xp-earned-lbl{font-size:14px;color:var(--teal-deep);margin-top:4px;font-weight:700;}
+.btn-home{padding:15px 40px;background:var(--teal);color:white;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
+.btn-home:hover{background:var(--teal-deep);}
+</style>
+</head>
+<body>
+
+<div class="screen active" id="home">
+  <div class="wordmark">SQL<span>ingo</span></div>
+  <div class="tagline">Learn SQL like a language</div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val" id="xp-display">0</div><div class="stat-lbl">Total XP</div></div>
+    <div class="stat-card"><div class="stat-val" id="streak-display">1 🔥</div><div class="stat-lbl">Streak</div></div>
+    <div class="stat-card"><div class="stat-val" id="done-display">0/3</div><div class="stat-lbl">Lessons</div></div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-label"><span>Module 1 progress</span><span id="progress-pct">0%</span></div>
+    <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+  </div>
+  <div class="module-card">
+    <div class="module-tag">📦 Module 1</div>
+    <div class="module-name">SELECT & FROM</div>
+    <div class="module-desc">Start here. No jargon, no videos. Just you, a store called Sakila, and your first SQL query.</div>
+    <div class="lesson-list">
+      <div class="lesson-row"><div class="lesson-dot" id="dot-0">1</div><div class="lesson-name">Meet the Database</div><div class="lesson-meta" id="meta-0">8 activities</div></div>
+      <div class="lesson-row"><div class="lesson-dot" id="dot-1">2</div><div class="lesson-name">SELECT & FROM</div><div class="lesson-meta" id="meta-1">9 activities</div></div>
+      <div class="lesson-row"><div class="lesson-dot" id="dot-2">3</div><div class="lesson-name">Common Mistakes</div><div class="lesson-meta" id="meta-2">8 activities</div></div>
+    </div>
+    <button class="btn-start" id="btn-start" onclick="startLesson()">Let's go →</button>
+  </div>
+</div>
+
+<div class="screen" id="lesson">
+  <div class="lesson-header">
+    <button class="btn-back" onclick="goHome()" aria-label="Back">←</button>
+    <div class="header-track"><div class="header-fill" id="header-fill" style="width:0%"></div></div>
+    <div class="xp-chip">⚡ <span id="session-xp">0</span> XP</div>
+  </div>
+  <div class="lesson-body" id="lesson-body"></div>
+</div>
+
+<div class="screen" id="complete">
+  <div class="complete-emoji">🎉</div>
+  <div class="complete-title">You did it!</div>
+  <div class="complete-sub" id="complete-msg">Keep going.</div>
+  <div class="xp-earned-card">
+    <div class="xp-earned-val" id="earned-val">+80</div>
+    <div class="xp-earned-lbl">XP earned this lesson</div>
+  </div>
+  <button class="btn-home" onclick="goHome()">Back to home</button>
+</div>
+
+<script>
+const S={
+  xp:parseInt(localStorage.getItem('sq_xp')||0),
+  streak:parseInt(localStorage.getItem('sq_streak')||1),
+  done:parseInt(localStorage.getItem('sq_done')||0),
+  lesson:0,step:0,sxp:0
+};
+
+const lessons=[
+  {
+    title:"Meet the Database",
+    msg:"You now know what the Sakila store looks like. Next up — asking your first question from it.",
+    steps:[
+      {type:'story',render:()=>`
+        <div class="story-card">
+          <div class="story-emoji">📼</div>
+          <div class="story-title">Before Netflix, there was the DVD store.</div>
+          <div class="story-body">
+            Before OTT platforms like Netflix existed, people used to rent movies on DVDs from a physical store. You'd walk in, pick a movie, pay for it, and return it a few days later.<br><br>
+            <strong>Sakila is one such store.</strong> It's a real practice database used by SQL learners worldwide — and we're going to use it throughout SQLingo.<br><br>
+            Every store keeps records. Sakila keeps its records in <strong>tables</strong> — think of each table like a spreadsheet with rows and columns.
+            <div class="table-grid">
+              <div class="table-chip"><div class="tci">🎬</div><div class="tcn">film</div><div class="tcd">Every movie in the store</div></div>
+              <div class="table-chip"><div class="tci">👤</div><div class="tcn">customer</div><div class="tcd">People who rent</div></div>
+              <div class="table-chip"><div class="tci">📋</div><div class="tcn">rental</div><div class="tcd">Every rental made</div></div>
+              <div class="table-chip"><div class="tci">💰</div><div class="tcn">payment</div><div class="tcd">Payments received</div></div>
+            </div>
+            <br><strong>All these tables together — that's a database.</strong> Think of it as a digital filing cabinet for a business.
+          </div>
+        </div>
+        <button class="btn-continue" onclick="nextStep()">Got it, let's go →</button>
+      `},
+      {type:'choice',q:'Sakila is a DVD rental store. Where does it keep all its information?',opts:['In a folder on a laptop','In a database made up of tables','In a spreadsheet emailed every day','In a notebook at the counter'],correct:1,fb:{correct:{t:"Exactly! 🎯",b:"A database is just an organised place to store information. Sakila's database has multiple tables — each one holds a different type of information about the store."},wrong:{t:"Not quite — think about it",b:"A database is an organised collection of tables. Each table stores a specific type of information — movies, customers, rentals, payments."}}},
+      {type:'choice',q:'Which table would you look in to find what movies are available in the Sakila store?',opts:['customer','payment','film','rental'],correct:2,fb:{correct:{t:"Yes! 🎬",b:"The film table is where all the movies live. Makes sense — you'd name a table after what it stores."},wrong:{t:"Hmm, think about the name",b:"Table names tell you exactly what's inside them. The film table stores all the movie information."}}},
+      {type:'choice',q:'Inside the film table, you see these columns: film_id, title, description, rental_rate. Which column gives you the name of each movie?',opts:['film_id','description','title','rental_rate'],correct:2,fb:{correct:{t:"That's it! 🙌",b:"The title column holds the name of each movie. Column names work the same way — they tell you exactly what data they store."},wrong:{t:"Think about what each column name means",b:"title — the name of the movie. That's the one we want. Column names are always descriptive like this."}}},
+      {type:'choice',q:'True or false — a table in a database is similar to a spreadsheet with rows and columns.',opts:['True','False'],correct:0,fb:{correct:{t:"True! ✓",b:"A table works just like a spreadsheet. Columns are the categories — like title, rental_rate. Rows are the individual records — each row is one movie."},wrong:{t:"Actually — it's True!",b:"Tables and spreadsheets are very similar. Columns = categories of information. Rows = individual records. Same concept, different name."}}},
+      {type:'choice',q:'The Sakila database has 4 tables — film, customer, rental, payment. A customer rents a movie and pays for it. Which table records the payment?',opts:['film','customer','rental','payment'],correct:3,fb:{correct:{t:"Perfect logic! 💰",b:"The payment table records every payment made at the store. Each table has one job — and the name always tells you what that job is."},wrong:{t:"Look at the table names again",b:"Each table name tells you exactly what it stores. Which one sounds like it would record money paid by customers?"}}},
+      {type:'choice',q:'You want to find out how many times a specific movie was rented. Which table would help you most?',opts:['film','customer','rental','payment'],correct:2,fb:{correct:{t:"Nice thinking! 📋",b:"The rental table has a record for every single rental — so counting rows for a specific movie tells you exactly how many times it was rented."},wrong:{t:"Think about which table tracks rentals",b:"The rental table has one row per rental. So if you want to count how many times a movie was rented, that's your table."}}},
+      {type:'choice',q:'Which of these best describes what a database is?',opts:['A single spreadsheet with all your data','A collection of organised tables that store related information','A folder of Word documents','An app you download on your phone'],correct:1,fb:{correct:{t:"That's the definition! ✓",b:"A database is a collection of organised tables. Each table stores specific related information. Sakila's database has tables for films, customers, rentals, and payments — all connected."},wrong:{t:"Not quite",b:"A database is a collection of tables — not just one spreadsheet, not documents. Multiple organised tables that store related information and work together."}}}
+    ]
+  },
+  {
+    title:"SELECT & FROM",
+    msg:"You wrote real SQL today — multiple times, in different ways. SELECT and FROM are yours now.",
+    steps:[
+      {type:'story',render:()=>`
+        <div class="story-card">
+          <div class="story-emoji">💡</div>
+          <div class="story-title">You already said it in English. Now say it in SQL.</div>
+          <div class="story-body">
+            In the last lesson, you said: <strong>"I want the title column from the film table."</strong><br><br>
+            That's literally all a SQL query is. Here's the template:<br><br>
+            <code>SELECT column_name FROM table_name</code><br><br>
+            Whatever you want to <strong>see</strong> goes after SELECT.<br>
+            Where you <strong>take it from</strong> goes after FROM.<br><br>
+            That's the whole thing. Let's practise it until it feels automatic.
+          </div>
+        </div>
+        <button class="btn-continue" onclick="nextStep()">Let me try →</button>
+      `},
+      {type:'drag',q:'Arrange these words to get all movie titles from the film table.',words:['FROM','SELECT','film','title'],correct:['SELECT','title','FROM','film'],fb:{correct:{t:"Your first SQL query! 🎉",b:"SELECT title FROM film — reads exactly like English. Select the title, from the film table. Simple as that."},wrong:{t:"Almost — here's the order",b:"The template is: SELECT [what you want] FROM [where you take it from]. So: SELECT title FROM film"}}},
+      {type:'choice',q:'What does SELECT do in a SQL query?',opts:['It deletes data from a table','It tells the database which columns you want to see','It connects two tables together','It creates a new table'],correct:1,fb:{correct:{t:"Exactly! ✓",b:"SELECT is how you tell the database: 'show me this.' Whatever comes after SELECT is what appears in your results."},wrong:{t:"Not quite",b:"SELECT tells the database which columns to show you in the result. Think of it as 'show me' — SELECT title means 'show me the title column.'"}}},
+      {type:'choice',q:'What does FROM do in a SQL query?',opts:['It filters your results','It sorts your results','It tells the database which table to look in','It counts the rows'],correct:2,fb:{correct:{t:"Yes! ✓",b:"FROM tells the database where to look. FROM film means 'look in the film table.' Without FROM, the database wouldn't know where to find your data."},wrong:{t:"FROM is simpler than that",b:"FROM just tells the database which table to look in. FROM film = look in the film table. That's it."}}},
+      {type:'choice',q:'You want to see both the title and rental_rate of each movie. How do you select multiple columns?',opts:['SELECT title and rental_rate FROM film','SELECT title, rental_rate FROM film','SELECT title + rental_rate FROM film','SELECT (title, rental_rate) FROM film'],correct:1,fb:{correct:{t:"Comma! Not 'and'. 👏",b:"In SQL, columns are separated by a comma. We say 'and' in English — but SQL only understands commas here. Easy to forget at first, easy to remember once you know."},wrong:{t:"Common mix-up!",b:"In English we say 'title and rental_rate' — but SQL uses a comma between column names. It's: SELECT title, rental_rate FROM film"}}},
+      {type:'fill',q:'Complete this query to get all movie titles from the film table.',template:'___ title FROM film',answer:'SELECT',fb:{correct:{t:"Perfect. ✓",b:"SELECT is the first word in almost every query you'll ever write. It tells the database: here's what I want to see."},wrong:{t:"The missing word is SELECT",b:"SELECT title FROM film. SELECT always comes first — it's how you tell SQL what to show you."}}},
+      {type:'choice',q:'You want every single column from the film table at once. What do you write after SELECT?',opts:['all','*','everything','film.*'],correct:1,fb:{correct:{t:"The star! ⭐",b:"SELECT * FROM film gives you every column. The * means 'give me everything.' Super useful when you're exploring a table for the first time."},wrong:{t:"It's simpler than you think",b:"The symbol is * — the asterisk. One character and you get every column. SELECT * FROM film."}}},
+      {type:'drag',q:'Now write a query to get all columns from the customer table.',words:['customer','FROM','*','SELECT'],correct:['SELECT','*','FROM','customer'],fb:{correct:{t:"Yes! 🙌",b:"SELECT * FROM customer — you're getting the hang of this. The template always works the same way, no matter which table you're querying."},wrong:{t:"Same template, different table",b:"SELECT * FROM customer. SELECT first, then what you want (* for everything), then FROM, then the table name."}}},
+      {type:'choice',q:'Which query correctly gets the title and description columns from the film table?',opts:['SELECT title, description FROM film','SELECT title and description FROM film','FROM film SELECT title, description','SELECT film FROM title, description'],correct:0,fb:{correct:{t:"Nailed it! ✓",b:"SELECT title, description FROM film. Columns separated by comma, FROM tells us the table. You're reading SQL like a language now."},wrong:{t:"Remember the template",b:"SELECT always comes first, then your columns separated by commas, then FROM, then the table. SELECT title, description FROM film."}}}
+    ]
+  },
+  {
+    title:"Common Mistakes",
+    msg:"You now know what SQL cares about and what it doesn't. That'll save you a lot of frustration.",
+    steps:[
+      {type:'story',render:()=>`
+        <div class="story-card">
+          <div class="story-emoji">⚠️</div>
+          <div class="story-title">SQL is relaxed about some things. Very strict about others.</div>
+          <div class="story-body">
+            Good news — SQL doesn't care about uppercase or lowercase. <code>select</code>, <code>SELECT</code>, <code>Select</code> — all work exactly the same.<br><br>
+            But SQL is very strict about these:<br><br>
+            <strong>Spellings</strong> — type <code>films</code> instead of <code>film</code> and you'll get an error. One extra letter breaks everything.<br><br>
+            <strong>Spaces in names</strong> — if a column is called <code>first_name</code>, you cannot write <code>first name</code> with a space. The underscore is part of the name. Use it exactly as it appears.<br><br>
+            <strong>Spaces between keywords</strong> — there must be a space between SELECT and your column name, and between FROM and your table name.<br><br>
+            Let's make sure these stick.
+          </div>
+        </div>
+        <button class="btn-continue" onclick="nextStep()">Let's test this →</button>
+      `},
+      {type:'choice',q:"True or false — in SQL, SELECT and select do exactly the same thing.",opts:["True — cases don't matter in SQL","False — you must always use UPPERCASE"],correct:0,fb:{correct:{t:"True! SQL doesn't care about case. ✓",b:"SELECT, select, Select — all work the same. Most people write keywords in uppercase just to make queries easier to read. But SQL doesn't require it."},wrong:{t:"Actually — it's True!",b:"SQL keywords are case-insensitive. SELECT and select do the exact same thing. You can write however you like — SQL won't mind."}}},
+      {type:'choice',q:'Your table is called film. A student types: SELECT title FROM films. What happens?',opts:['It works — SQL ignores the extra s','It returns an empty result','It gives an error — "films" doesn\'t exist','SQL automatically corrects it to film'],correct:2,fb:{correct:{t:"Error — every time. ✓",b:"SQL is exact about names. films is not the same as film. One extra letter and the database has no idea what you're referring to. Always double-check your spelling."},wrong:{t:"It gives an error — always",b:"SQL doesn't guess or autocorrect. films ≠ film. The table doesn't exist by that name, so the query fails immediately."}}},
+      {type:'choice',q:'A column is called rental_rate. Which version will cause an error in your query?',opts:['rental_rate','rental rate','Rental_Rate','RENTAL_RATE'],correct:1,fb:{correct:{t:"Yes — the space breaks it! ✓",b:"rental rate with a space causes an error. SQL sees it as two separate words and gets confused. Always use the underscore: rental_rate. Cases don't matter — rental_rate, Rental_Rate, RENTAL_RATE all work fine."},wrong:{t:"Hmm — think about what SQL is strict about",b:"Remember — SQL doesn't care about cases. rental_rate, Rental_Rate, RENTAL_RATE all work. What SQL cannot handle is a space inside a name. rental rate breaks everything."}}},
+      {type:'choice',q:'Which of these queries is written correctly?',opts:['SELECTtitle FROM film','SELECT title FROMfilm','SELECT title FROM film','SELECT, title FROM film'],correct:2,fb:{correct:{t:"That's the one. ✓",b:"A space between every keyword and name — SELECT [space] title [space] FROM [space] film. Remove any space and the query breaks."},wrong:{t:"Look at the spaces carefully",b:"There must be a space between SELECT and the column name, and between FROM and the table name. The correct version: SELECT title FROM film"}}},
+      {type:'choice',q:'True or false — SELECT Title FROM Film works the same as SELECT title FROM film.',opts:['True — cases don\'t matter','False — you must use lowercase for table and column names'],correct:0,fb:{correct:{t:"True! ✓",b:"Cases don't matter anywhere in a SQL query — keywords, table names, column names. SQL is completely case-insensitive. SELECT Title FROM Film works perfectly."},wrong:{t:"Actually True!",b:"SQL is case-insensitive everywhere — keywords AND names. SELECT Title FROM Film is identical to SELECT title FROM film."}}},
+      {type:'choice',q:'A student writes: SELECT first name FROM customer. What is wrong with this query?',opts:['Nothing — it looks correct','The column name should be first_name not first name','FROM should come before SELECT','customer should be in uppercase'],correct:1,fb:{correct:{t:"Sharp eye! ✓",b:"The column is called first_name — with an underscore. Writing first name with a space makes SQL think you're writing two separate things, which causes an error."},wrong:{t:"Look at the column name",b:"first name has a space in the middle. But the actual column name is first_name with an underscore. SQL sees 'first name' as two separate words and gets confused."}}},
+      {type:'fill',q:'A column is called last_name. Complete this query to get it from the customer table.',template:'SELECT ___ FROM customer',answer:'last_name',fb:{correct:{t:"Perfect — underscore and all. ✓",b:"last_name — exactly as the column is named. Always use the column name exactly as it appears in the table, underscore included."},wrong:{t:"Remember the underscore",b:"The column name is last_name — with an underscore connecting the two words. No space allowed."}}},
+      {type:'choice',q:'Which of these mistakes will definitely cause an error in SQL?',opts:['Writing SELECT in lowercase','Leaving a space in a column name like first name instead of first_name','Writing the table name in uppercase','Using a comma between column names'],correct:1,fb:{correct:{t:"That's the one to watch out for! ✓",b:"Spaces inside column or table names break SQL completely. first name is not the same as first_name. Always use underscore to join words in names."},wrong:{t:"Think about what SQL is strict about",b:"SQL doesn't care about case — uppercase, lowercase, it's fine. But spaces inside names are a problem. first name breaks the query. first_name is correct."}}}
+    ]
+  }
+];
+
+let act=null;
+
+function renderStep(){
+  const L=lessons[S.lesson],step=L.steps[S.step],total=L.steps.length;
+  document.getElementById('header-fill').style.width=Math.round((S.step/total)*100)+'%';
+  const body=document.getElementById('lesson-body');
+  let h=`<div class="lesson-tag">Module 1 · Lesson ${S.lesson+1}</div><div class="lesson-heading">${L.title}</div>`;
+  if(step.type==='story'){body.innerHTML=h+step.render();return;}
+  if(step.type==='choice'){
+    h+=`<div class="activity-card"><div class="act-type">Choose the correct answer</div><div class="act-q">${step.q}</div><div class="options">${step.opts.map((o,i)=>`<button class="opt" onclick="chkChoice(${i})" id="op${i}"><span class="opt-ic" id="ic${i}">○</span>${o}</button>`).join('')}</div><div class="feedback" id="fb"></div></div><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
+    body.innerHTML=h;act={type:'choice',step};return;
+  }
+  if(step.type==='drag'){
+    const sh=[...step.words].sort(()=>Math.random()-0.5);
+    h+=`<div class="activity-card"><div class="act-type">Arrange in the right order</div><div class="act-q">${step.q}</div><div class="drop-zone" id="dzone"><span class="zone-hint" id="zhint">Tap words below to place them here</span></div><div class="word-bank" id="wbank">${sh.map((w,i)=>`<div class="drag-word" id="dw${i}" onclick="tapW('${w}',${i})">${w}</div>`).join('')}</div><div class="feedback" id="fb"></div></div><button class="btn-check show" id="bcheck" onclick="chkDrag()">Check my answer</button><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
+    body.innerHTML=h;act={type:'drag',step,placed:[]};return;
+  }
+  if(step.type==='fill'){
+    h+=`<div class="activity-card"><div class="act-type">Fill in the blank</div><div class="act-q">${step.q}</div><div class="code-template">${step.template.replace('___','<span class="blank-span">___</span>')}</div><input class="fill-input" id="fin" placeholder="Type your answer..." oninput="onType()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/><div class="feedback" id="fb"></div></div><button class="btn-check show" id="bcheck" onclick="chkFill()" disabled>Check my answer</button><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
+    body.innerHTML=h;act={type:'fill',step};return;
+  }
+}
+
+let mistakeQueue=[];
+
+function chkChoice(idx){
+  const step=act.step;
+  document.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
+  const ok=idx===step.correct;
+  document.getElementById('ic'+idx).textContent=ok?'✓':'✗';
+  document.getElementById('op'+idx).classList.add(ok?'correct':'wrong');
+  if(!ok){
+    document.getElementById('op'+step.correct).classList.add('correct');
+    document.getElementById('op'+step.correct).classList.remove('disabled');
+    document.getElementById('ic'+step.correct).textContent='✓';
+    if(!mistakeQueue.includes(S.step))mistakeQueue.push(S.step);
+  }
+  showFb(ok,step.fb);if(ok)addXP(10);
+  const nb=document.getElementById('bnext');
+  nb.textContent=ok?"Continue →":"Got it — I will try again →";
+  nb.classList.add('show');
+}
+
+function tapW(word,idx){
+  const el=document.getElementById('dw'+idx);
+  if(el.classList.contains('used'))return;
+  el.classList.add('used');
+  const zone=document.getElementById('dzone'),hint=document.getElementById('zhint');
+  if(hint)hint.remove();
+  const pw=document.createElement('div');pw.className='placed-word';pw.textContent=word;pw.title='Tap to remove';
+  pw.onclick=()=>{pw.remove();el.classList.remove('used');act.placed=act.placed.filter(p=>p.idx!==idx);if(!document.getElementById('dzone').children.length){const h=document.createElement('span');h.className='zone-hint';h.id='zhint';h.textContent='Tap words below to place them here';document.getElementById('dzone').appendChild(h);}};
+  zone.appendChild(pw);act.placed.push({word,idx});
+}
+
+function chkDrag(){
+  const step=act.step,placed=act.placed.map(p=>p.word),ok=JSON.stringify(placed)===JSON.stringify(step.correct);
+  document.getElementById('dzone').classList.add(ok?'correct-zone':'wrong-zone');
+  document.querySelectorAll('.drag-word').forEach(e=>e.style.pointerEvents='none');
+  document.querySelectorAll('.placed-word').forEach(e=>e.style.pointerEvents='none');
+  if(!ok && !mistakeQueue.includes(S.step))mistakeQueue.push(S.step);
+  showFb(ok,step.fb);if(ok)addXP(15);
+  const nb=document.getElementById('bcheck');nb.style.display='none';
+  document.getElementById('bnext').classList.add('show');
+}
+
+function onType(){document.getElementById('bcheck').disabled=!document.getElementById('fin').value.trim();}
+
+function chkFill(){
+  const step=act.step,input=document.getElementById('fin'),ok=input.value.trim().toLowerCase()===step.answer.toLowerCase();
+  input.classList.add(ok?'correct-input':'wrong-input');input.disabled=true;
+  if(!ok && !mistakeQueue.includes(S.step))mistakeQueue.push(S.step);
+  showFb(ok,step.fb);if(ok)addXP(10);
+  document.getElementById('bcheck').style.display='none';
+  document.getElementById('bnext').classList.add('show');
+}
+
+function showFb(ok,fb){
+  const d=ok?fb.correct:fb.wrong,el=document.getElementById('fb');
+  el.className='feedback show '+(ok?'correct-fb':'wrong-fb');
+  el.innerHTML=`<div class="fb-icon">${ok?'✅':'❌'}</div><div><div class="fb-title">${d.t}</div><div class="fb-body">${d.b}</div></div>`;
+}
+
+function addXP(n){S.sxp+=n;document.getElementById('session-xp').textContent=S.sxp;}
+
+let inRetryMode=false;
+let currentRetryStep=null;
+
+function nextStep(){
+  const L=lessons[S.lesson];
+
+  if(inRetryMode){
+    if(mistakeQueue.length>0){
+      currentRetryStep=mistakeQueue.shift();
+      S.step=currentRetryStep;
+      showRetryBanner();
+      renderStep();window.scrollTo(0,0);
+    } else {
+      inRetryMode=false;
+      completeLesson();
+    }
+    return;
+  }
+
+  S.step++;
+  if(S.step>=L.steps.length){
+    if(mistakeQueue.length>0){
+      inRetryMode=true;
+      currentRetryStep=mistakeQueue.shift();
+      S.step=currentRetryStep;
+      showRetryBanner();
+      renderStep();window.scrollTo(0,0);
+    } else {
+      completeLesson();
+    }
+    return;
+  }
+  document.getElementById('header-fill').style.width=Math.round((S.step/L.steps.length)*100)+'%';
+  renderStep();window.scrollTo(0,0);
+}
+
+function showRetryBanner(){
+  const body=document.getElementById('lesson-body');
+  const banner=document.createElement('div');
+  banner.style.cssText='background:#fff3cd;border:1.5px solid #ffc107;border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;font-weight:700;color:#856404;display:flex;gap:10px;align-items:center;';
+  banner.innerHTML="<span>🔁</span><span>You got this one wrong earlier — try this one again!</span>";
+  body.insertBefore(banner,body.firstChild);
+}
+
+function completeLesson(){
+  S.xp+=S.sxp;S.done=Math.min(S.done+1,lessons.length);
+  localStorage.setItem('sq_xp',S.xp);localStorage.setItem('sq_done',S.done);
+  document.getElementById('earned-val').textContent='+'+S.sxp;
+  document.getElementById('complete-msg').textContent=lessons[S.lesson].msg;
+  updateHome();show('complete');
+}
+
+function startLesson(){
+  S.lesson=S.done<lessons.length?S.done:0;S.step=0;S.sxp=0;
+  mistakeQueue=[];inRetryMode=false;currentRetryStep=null;
+  document.getElementById('session-xp').textContent='0';
+  show('lesson');renderStep();
+}
+
+function goHome(){updateHome();show('home');}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+
+function updateHome(){
+  document.getElementById('xp-display').textContent=S.xp;
+  document.getElementById('streak-display').textContent=S.streak+'🔥';
+  document.getElementById('done-display').textContent=S.done+'/3';
+  const pct=Math.round((S.done/lessons.length)*100);
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('progress-pct').textContent=pct+'%';
+  for(let i=0;i<3;i++){
+    const d=document.getElementById('dot-'+i),m=document.getElementById('meta-'+i);
+    if(i<S.done){d.classList.add('done');d.textContent='✓';m.textContent='Done ✓';}
+    else{d.classList.remove('done');d.textContent=i+1;m.textContent=['8 activities','9 activities','8 activities'][i];}
+  }
+  const btn=document.getElementById('btn-start');
+  if(S.done>=lessons.length){btn.textContent='Module complete! 🎉';btn.disabled=true;}
+  else if(S.done>0){btn.textContent='Continue →';btn.disabled=false;}
+  else{btn.textContent="Let's go →";btn.disabled=false;}
+}
+
+updateHome();
+setTimeout(()=>{document.getElementById('progress-bar').style.width=Math.round((S.done/lessons.length)*100)+'%';},300);
+</script>
+</body>
+</html>
