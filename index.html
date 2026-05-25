@@ -526,7 +526,131 @@ const modules=[
         ]
       }
     ]
+  },
+  {
+    name:"ORDER BY & LIMIT",
+    desc:"Sort your results any way you want and control how many rows come back. Simple but powerful.",
+    lessons:[
+      {
+        title:"ORDER BY Basics",
+        msg:"You can now sort any query result any way you want. ORDER BY is one of the most used clauses in SQL.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">📊</div>
+              <div class="story-title">You already do this in Excel.</div>
+              <div class="story-body">
+                When you sort a column in Excel — A to Z, newest to oldest, smallest to largest — that is exactly what ORDER BY does in SQL.<br><br>
+                Without ORDER BY, SQL returns rows in no guaranteed order. With ORDER BY, you control exactly how results are arranged.<br><br>
+                <code>SELECT * FROM film ORDER BY rental_rate</code><br><br>
+                By default, ORDER BY sorts <strong>ascending</strong> — smallest to largest, A to Z, oldest to newest.<br><br>
+                Add <code>DESC</code> to reverse it — largest to smallest, Z to A, newest to oldest.<br><br>
+                <code>SELECT * FROM film ORDER BY rental_rate DESC</code>
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Got it →</button>
+          `},
+          {type:'choice',q:'Without ORDER BY, what order does SQL return rows in?',opts:['Alphabetical order by default','Ascending order by ID','No guaranteed order — it can vary','The order the data was inserted'],correct:2,fb:{correct:{t:"Correct!",b:"Without ORDER BY, SQL makes no guarantee about the order of results. The same query can return rows in different orders at different times. Always use ORDER BY when order matters."},wrong:{t:"SQL gives no guarantee without ORDER BY",b:"Without ORDER BY, the result order is unpredictable. It may look ordered sometimes, but that is not guaranteed. Always use ORDER BY when you need a specific order."}}},
+          {type:'choice',q:'What does ORDER BY rental_rate do by default?',opts:['Sorts highest to lowest','Sorts lowest to highest — ascending','Sorts alphabetically by title','Returns only distinct values'],correct:1,fb:{correct:{t:"ASC is the default!",b:"ORDER BY always sorts ascending by default — lowest to highest for numbers, A to Z for text, oldest to newest for dates. You only need to write ASC explicitly if you want to be clear about it."},wrong:{t:"Default is ascending",b:"ORDER BY sorts ascending by default — lowest to highest. To sort highest to lowest, you need to add DESC."}}},
+          {type:'drag',q:'Build a query to get all film titles sorted from highest rental rate to lowest.',words:['title','SELECT','film','FROM','ORDER BY','rental_rate DESC'],correct:['SELECT','title','FROM','film','ORDER BY','rental_rate DESC'],fb:{correct:{t:"Perfect!",b:"SELECT title FROM film ORDER BY rental_rate DESC — titles sorted from most expensive to least expensive rental rate."},wrong:{t:"Remember the order",b:"SELECT → FROM → ORDER BY. And DESC goes right after the column name: ORDER BY rental_rate DESC"}}},
+          {type:'choice',q:'You want to sort customers alphabetically by last name A to Z. Which clause do you use?',opts:['ORDER BY last_name DESC','ORDER BY last_name ASC','ORDER BY last_name ALPHA','SORT BY last_name'],correct:1,fb:{correct:{t:"Yes! ASC for A to Z.",b:"ORDER BY last_name ASC sorts alphabetically from A to Z. You can also just write ORDER BY last_name since ASC is the default."},wrong:{t:"ASC means A to Z",b:"ASC = ascending = A to Z for text. ORDER BY last_name ASC gives you customers sorted alphabetically. DESC would give Z to A."}}},
+          {type:'fill',q:'Complete this query to get films sorted from shortest to longest by length.',template:'SELECT title FROM film ORDER BY length ___',answer:'ASC',fb:{correct:{t:"ASC — shortest to longest!",b:"ASC sorts ascending — smallest to largest. For film length, that means shortest films first. You can also just write ORDER BY length since ASC is the default."},wrong:{t:"ASC means smallest to largest",b:"ORDER BY length ASC sorts films from shortest to longest. ASC is ascending order."}}},
+          {type:'choice',q:'Which keyword reverses the sort order to show largest values first?',opts:['REVERSE','DESCENDING','DESC','DOWN'],correct:2,fb:{correct:{t:"DESC — largest first!",b:"DESC stands for descending. ORDER BY rental_rate DESC shows the most expensive films first. ORDER BY title DESC shows Z to A."},wrong:{t:"The keyword is DESC",b:"DESC stands for descending — largest to smallest, Z to A, newest to oldest. Just add DESC after your column name."}}},
+          {type:'choice',q:'You want rentals sorted from newest to oldest by rental_date. Which is correct?',opts:['ORDER BY rental_date ASC','ORDER BY rental_date DESC','ORDER BY rental_date NEWEST','ORDER BY rental_date REVERSE'],correct:1,fb:{correct:{t:"DESC for newest first!",b:"Dates sort just like numbers. DESC gives you newest first (largest date = most recent). ASC would give oldest first."},wrong:{t:"DESC means newest first for dates",b:"For dates, DESC = newest first because a more recent date is a larger value. ORDER BY rental_date DESC gives you the most recent rentals at the top."}}},
+          {type:'choice',q:'True or false — ORDER BY can be used with WHERE in the same query.',opts:['True — ORDER BY comes after WHERE','False — they cannot be used together'],correct:0,fb:{correct:{t:"True! WHERE filters, ORDER BY sorts.",b:"You can use both together. The order is SELECT → FROM → WHERE → ORDER BY. WHERE filters which rows to include, then ORDER BY sorts those filtered rows."},wrong:{t:"Actually True!",b:"WHERE and ORDER BY work together perfectly. WHERE filters the rows first, then ORDER BY sorts the filtered results. SELECT * FROM film WHERE rating = 'G' ORDER BY title."}}}
+        ]
+      },
+      {
+        title:"Multi-Column Sorting",
+        msg:"Multi-column sorting is a powerful tool. You now understand how priority order works — that is what separates basic SQL from real SQL.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">📋</div>
+              <div class="story-title">Sorting works in priority order — first column wins.</div>
+              <div class="story-body">
+                Think of a class list sorted by section first, then by roll number within each section.<br><br>
+                Section A students come before Section B students. Within Section A, roll numbers go 1, 2, 3...<br><br>
+                <strong>That is exactly how multi-column ORDER BY works.</strong> The first column you name gets sorted first. The second column sorts within groups that have the same first column value.<br><br>
+                <code>ORDER BY last_name, first_name</code><br><br>
+                All customers with last name starting with A come first. Within those, first names are sorted A to Z.<br><br>
+                You cannot sort both columns independently at the same time — it is always priority based. First column sorts first, second column sorts within that.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Got it →</button>
+          `},
+          {type:'choice',q:'ORDER BY last_name, first_name — what does the second column (first_name) sort?',opts:['All customers by first name regardless of last name','First names only within customers who share the same last name','First names in a completely separate sort','It has no effect — only the first column matters'],correct:1,fb:{correct:{t:"Exactly — within groups!",b:"first_name only sorts within customers who have the same last_name. All the Smiths get sorted by first name, all the Patels get sorted by first name — but Smiths and Patels are kept separate by the first sort."},wrong:{t:"Second column sorts within groups",b:"The second column in ORDER BY only kicks in when the first column has ties — same value. ORDER BY last_name, first_name sorts by last name first, then by first name within the same last name."}}},
+          {type:'choice',q:'You want to sort payments — highest amount first, and within the same amount, by payment_date oldest first. Which ORDER BY is correct?',opts:['ORDER BY amount, payment_date','ORDER BY amount DESC, payment_date ASC','ORDER BY amount ASC, payment_date DESC','ORDER BY payment_date, amount DESC'],correct:1,fb:{correct:{t:"Yes! Different directions on each column.",b:"ORDER BY amount DESC, payment_date ASC — largest amounts first, and within the same amount, oldest payment date first. Each column can have its own ASC or DESC."},wrong:{t:"Each column can have its own direction",b:"You can mix DESC and ASC on different columns. ORDER BY amount DESC, payment_date ASC means largest amount first, then oldest date within the same amount."}}},
+          {type:'choice',q:'True or false — each column in a multi-column ORDER BY can have its own ASC or DESC direction.',opts:['True — each column is independent','False — all columns must use the same direction'],correct:0,fb:{correct:{t:"True!",b:"Each column in ORDER BY can have its own direction. ORDER BY last_name ASC, amount DESC is perfectly valid — last name A to Z, then within same last name, largest amount first."},wrong:{t:"Actually True!",b:"You can mix directions freely. ORDER BY last_name ASC, payment_date DESC — each column has its own sort direction. Very useful for real-world queries."}}},
+          {type:'drag',q:'Build a query to get customers sorted by last name A to Z, then by first name A to Z within the same last name.',words:['*','SELECT','customer','FROM','ORDER BY','last_name,','first_name'],correct:['SELECT','*','FROM','customer','ORDER BY','last_name,','first_name'],fb:{correct:{t:"Perfect!",b:"SELECT * FROM customer ORDER BY last_name, first_name — last name sorts first, then first name sorts within the same last name. Both default to ASC."},wrong:{t:"ORDER BY comes after FROM",b:"SELECT * FROM customer ORDER BY last_name, first_name. Separate the columns with a comma inside ORDER BY."}}},
+          {type:'choice',q:'You have payments sorted by ORDER BY customer_id, amount DESC. Customer 5 paid 100, 50, and 200. In what order do their payments appear?',opts:['50, 100, 200','200, 100, 50','100, 50, 200','The order is unpredictable'],correct:1,fb:{correct:{t:"Yes! DESC within the group.",b:"All of customer 5 payments are grouped together by customer_id. Within that group, amount DESC sorts 200, 100, 50 — largest to smallest."},wrong:{t:"amount DESC means largest first within each customer",b:"customer_id groups all payments by customer. Then amount DESC sorts within that group — largest to smallest. So customer 5 payments appear as 200, 100, 50."}}},
+          {type:'choice',q:'ORDER BY rating, length DESC — what does this do?',opts:['Sorts by rating descending then length descending','Sorts by rating ascending first, then within same rating sorts length largest to smallest','Sorts by length descending only','Sorts by rating and length both descending'],correct:1,fb:{correct:{t:"Exactly right!",b:"rating has no direction specified so it defaults to ASC — G, NC-17, PG, PG-13, R alphabetically. Within each rating group, length DESC sorts longest films first."},wrong:{t:"Rating defaults to ASC, length is DESC",b:"When no direction is specified, ASC is the default. So rating sorts ASC (alphabetically), and within each rating, length sorts DESC (longest first)."}}},
+          {type:'fill',q:'Complete this query to sort films by rental_rate highest first, then by title A to Z within the same rental rate.',template:'SELECT * FROM film ORDER BY rental_rate ___, title',answer:'DESC',fb:{correct:{t:"Perfect combination!",b:"rental_rate DESC gives most expensive first. Then title (which defaults to ASC) sorts A to Z within films that have the same rental rate."},wrong:{t:"You need DESC for highest first",b:"ORDER BY rental_rate DESC, title — DESC for highest rental rate first, then title defaults to ASC for A to Z within the same price."}}},
+          {type:'choice',q:'Which scenario actually needs multi-column ORDER BY?',opts:['Sorting films by title only','Sorting payments where many customers paid the exact same amount and you want them further sorted by date','Sorting customers by ID which is always unique','Sorting films by film_id which never repeats'],correct:1,fb:{correct:{t:"Exactly when it matters!",b:"Multi-column sorting is most useful when the first column has ties — many rows with the same value. If every value is unique (like an ID), the second column never comes into play."},wrong:{t:"Multi-column sorting matters when there are ties",b:"If the first column has all unique values, the second column never activates. Multi-column ORDER BY is most useful when many rows share the same first column value."}}}
+        ]
+      },
+      {
+        title:"LIMIT",
+        msg:"LIMIT is simple but powerful. Top 5, top 10, top 100 — you can now get exactly the number of results you need.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">🔢</div>
+              <div class="story-title">You do not always want all the rows.</div>
+              <div class="story-body">
+                Imagine the film table has 1000 movies. You just want to see the top 5 most expensive ones.<br><br>
+                Without LIMIT, you get all 1000 rows. With LIMIT, you get exactly how many you ask for.<br><br>
+                <code>SELECT * FROM film ORDER BY rental_rate DESC LIMIT 5</code><br><br>
+                This gives you the 5 most expensive films — sorted highest first, then cut off at 5 rows.<br><br>
+                <strong>LIMIT always goes at the very end of the query.</strong><br><br>
+                And LIMIT without ORDER BY is almost never useful — you would get a random 5 rows, not the top 5.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Let me try →</button>
+          `},
+          {type:'choice',q:'You want the 10 shortest films in the Sakila database. Which query is correct?',opts:['SELECT * FROM film LIMIT 10','SELECT * FROM film ORDER BY length DESC LIMIT 10','SELECT * FROM film ORDER BY length ASC LIMIT 10','SELECT TOP 10 * FROM film ORDER BY length'],correct:2,fb:{correct:{t:"ORDER BY then LIMIT!",b:"ORDER BY length ASC sorts shortest first, then LIMIT 10 keeps only the first 10 rows. Without ORDER BY, LIMIT 10 gives you a random 10 films — not the shortest ones."},wrong:{t:"Check the sort direction",b:"ORDER BY length DESC LIMIT 10 gives the 10 LONGEST films — not shortest. You need ASC to get shortest first. And SELECT TOP is SQL Server syntax, not MySQL."}}},
+          {type:'choice',q:'Where does LIMIT go in a query?',opts:['After SELECT, before FROM','After FROM, before WHERE','After WHERE, before ORDER BY','At the very end, after ORDER BY'],correct:3,fb:{correct:{t:"Always at the end!",b:"The full order is SELECT → FROM → WHERE → ORDER BY → LIMIT. LIMIT always comes last. It is the final instruction — after filtering and sorting, how many rows do you want?"},wrong:{t:"LIMIT goes last",b:"LIMIT is always the last clause. SELECT → FROM → WHERE → ORDER BY → LIMIT. It runs after everything else — filter first, sort, then limit."}}},
+          {type:'fill',q:'Complete this query to get the 3 most recently rented films.',template:'SELECT * FROM rental ORDER BY rental_date DESC LIMIT ___',answer:'3',fb:{correct:{t:"LIMIT 3 — just the top 3!",b:"ORDER BY rental_date DESC puts the newest rentals first. LIMIT 3 keeps only the first 3 rows — so you get the 3 most recent rentals."},wrong:{t:"Put the number of rows you want after LIMIT",b:"LIMIT 3 means give me only 3 rows. Combined with ORDER BY rental_date DESC, this gives the 3 most recent rentals."}}},
+          {type:'choice',q:'True or false — LIMIT 5 without ORDER BY always gives you the 5 most recently added rows.',opts:['True — SQL returns the newest rows first by default','False — without ORDER BY the result order is not guaranteed'],correct:1,fb:{correct:{t:"False — no guarantee!",b:"Without ORDER BY, SQL gives no guarantee about which rows appear or in what order. LIMIT 5 without ORDER BY could give you any 5 rows — not necessarily the newest."},wrong:{t:"Actually False!",b:"Without ORDER BY, the order is unpredictable. LIMIT 5 gives you some 5 rows — but which 5 is not guaranteed. Always pair LIMIT with ORDER BY when the specific rows matter."}}},
+          {type:'choice',q:'You want the single most expensive film in the database. Which query works?',opts:['SELECT * FROM film WHERE rental_rate = MAX','SELECT * FROM film ORDER BY rental_rate DESC LIMIT 1','SELECT * FROM film LIMIT 1 ORDER BY rental_rate DESC','SELECT MAX(rental_rate) FROM film LIMIT 1'],correct:1,fb:{correct:{t:"ORDER BY DESC LIMIT 1 — the classic!",b:"ORDER BY rental_rate DESC puts the most expensive film first. LIMIT 1 keeps only that one row. This is one of the most commonly used patterns in SQL."},wrong:{t:"ORDER BY DESC then LIMIT 1",b:"Sort highest first with ORDER BY rental_rate DESC, then take just the first row with LIMIT 1. That gives you the single most expensive film."}}},
+          {type:'drag',q:'Build a query to get the 5 customers with the highest customer_id.',words:['*','SELECT','customer','FROM','ORDER BY','customer_id DESC','LIMIT 5'],correct:['SELECT','*','FROM','customer','ORDER BY','customer_id DESC','LIMIT 5'],fb:{correct:{t:"Perfect!",b:"SELECT * FROM customer ORDER BY customer_id DESC LIMIT 5 — sorted highest ID first, then only the first 5 rows returned."},wrong:{t:"ORDER BY before LIMIT",b:"SELECT * FROM customer ORDER BY customer_id DESC LIMIT 5. ORDER BY sorts first, LIMIT cuts after."}}},
+          {type:'choice',q:'A table has 100 rows. You run SELECT * FROM film LIMIT 200. How many rows do you get?',opts:['200 — SQL creates empty rows to fill the limit','100 — SQL returns all available rows','0 — LIMIT cannot exceed the table size','An error'],correct:1,fb:{correct:{t:"Just what exists!",b:"If LIMIT is larger than the number of available rows, SQL simply returns all rows. LIMIT 200 on a 100-row table gives you all 100 rows — no error, no empty rows."},wrong:{t:"SQL returns what is available",b:"LIMIT is a maximum, not a requirement. If there are only 100 rows, LIMIT 200 returns all 100. SQL never creates empty rows to fill a limit."}}},
+          {type:'choice',q:'You want to see only the most expensive film in the database. Which query is correct?',opts:['SELECT * FROM film WHERE rental_rate = MAX','SELECT * FROM film ORDER BY rental_rate DESC LIMIT 1','SELECT * FROM film LIMIT 1','SELECT * FROM film ORDER BY rental_rate ASC LIMIT 1'],correct:1,fb:{correct:{t:"ORDER BY DESC then LIMIT 1 — the classic!",b:"ORDER BY rental_rate DESC puts the most expensive film first. LIMIT 1 keeps only that one row. This is one of the most commonly used SQL patterns."},wrong:{t:"Sort highest first, then take just one",b:"ORDER BY rental_rate DESC sorts most expensive first. LIMIT 1 keeps just the top row. ORDER BY rental_rate ASC LIMIT 1 would give the cheapest film, not the most expensive."}}}
+        ]
+      },
+      {
+        title:"OFFSET & Pagination",
+        msg:"You now understand pagination — one of the most practical SQL patterns used in real applications every day.",
+        steps:[
+          {type:'story',render:()=>`
+            <div class="story-card">
+              <div class="story-emoji">📄</div>
+              <div class="story-title">OFFSET — skip some rows, then start showing.</div>
+              <div class="story-body">
+                Think of any website with multiple pages of results — Google, Amazon, Flipkart. Page 1 shows results 1 to 10. Page 2 shows results 11 to 20.<br><br>
+                That is pagination. And in SQL it is done with LIMIT and OFFSET together.<br><br>
+                <code>LIMIT 10 OFFSET 0</code> — Page 1, rows 1 to 10<br>
+                <code>LIMIT 10 OFFSET 10</code> — Page 2, rows 11 to 20<br>
+                <code>LIMIT 10 OFFSET 20</code> — Page 3, rows 21 to 30<br><br>
+                <strong>OFFSET tells SQL how many rows to skip before starting to return results.</strong><br><br>
+                OFFSET always goes after LIMIT at the very end of the query.
+              </div>
+            </div>
+            <button class="btn-continue" onclick="nextStep()">Got it →</button>
+          `},
+          {type:'choice',q:'What does OFFSET do in a SQL query?',opts:['Sorts results in reverse','Skips a specified number of rows before returning results','Limits the number of columns returned','Filters rows based on a condition'],correct:1,fb:{correct:{t:"Skip then show!",b:"OFFSET skips rows. LIMIT 10 OFFSET 20 skips the first 20 rows and then returns the next 10. Combined with ORDER BY, this is how pagination works."},wrong:{t:"OFFSET skips rows",b:"OFFSET tells SQL how many rows to skip before it starts returning results. LIMIT 10 OFFSET 20 skips 20 rows, then returns the next 10."}}},
+          {type:'choice',q:'You want page 2 of results, with 10 results per page. What is the correct LIMIT and OFFSET?',opts:['LIMIT 10 OFFSET 5','LIMIT 10 OFFSET 10','LIMIT 2 OFFSET 10','LIMIT 20 OFFSET 10'],correct:1,fb:{correct:{t:"LIMIT 10 OFFSET 10 — page 2!",b:"Page 1 = rows 1 to 10 (OFFSET 0). Page 2 = rows 11 to 20 (OFFSET 10 — skip the first 10). Page 3 = rows 21 to 30 (OFFSET 20). The pattern is OFFSET = (page number - 1) * page size."},wrong:{t:"Think about how many to skip",b:"Page 2 with 10 per page means skip the first 10 rows. LIMIT 10 OFFSET 10 — show 10 rows starting from row 11."}}},
+          {type:'fill',q:'You want page 3 of results with 5 results per page. What is the OFFSET value?',template:'SELECT * FROM film ORDER BY title LIMIT 5 OFFSET ___',answer:'10',fb:{correct:{t:"OFFSET 10 for page 3!",b:"Page 1 = OFFSET 0 (skip 0). Page 2 = OFFSET 5 (skip 5). Page 3 = OFFSET 10 (skip 10). Formula: (page - 1) * page_size = (3-1) * 5 = 10."},wrong:{t:"Formula is: (page - 1) x page size",b:"Page 3 with 5 per page: (3-1) x 5 = 10. OFFSET 10 skips the first 10 rows and starts from row 11."}}},
+          {type:'choice',q:'Where does OFFSET go in a query?',opts:['Before LIMIT','After LIMIT, at the very end','After ORDER BY but before LIMIT','Before ORDER BY'],correct:1,fb:{correct:{t:"After LIMIT, always last!",b:"The full order is SELECT → FROM → WHERE → ORDER BY → LIMIT → OFFSET. OFFSET always comes after LIMIT at the very end of the query."},wrong:{t:"OFFSET comes after LIMIT",b:"SELECT → FROM → WHERE → ORDER BY → LIMIT → OFFSET. OFFSET is always last, always after LIMIT."}}},
+          {type:'choice',q:'SELECT * FROM film ORDER BY title LIMIT 5 OFFSET 0 — what does OFFSET 0 mean?',opts:['Skip all rows','Skip the last 0 rows','Skip no rows — start from the very beginning','Return 0 extra rows'],correct:2,fb:{correct:{t:"OFFSET 0 means no skipping!",b:"OFFSET 0 means skip zero rows — start from the very first row. This is the same as not writing OFFSET at all. It is page 1 of your results."},wrong:{t:"OFFSET 0 means skip nothing",b:"OFFSET 0 skips zero rows — you start from row 1. It is equivalent to having no OFFSET at all. Page 1 always starts at OFFSET 0."}}},
+          {type:'choice',q:'True or false — OFFSET without LIMIT is valid SQL.',opts:['True — OFFSET works on its own','False — OFFSET requires LIMIT to work'],correct:1,fb:{correct:{t:"False — OFFSET needs LIMIT!",b:"OFFSET on its own does not make sense — skip some rows, then return how many? You always need LIMIT to define how many rows to return after the skip."},wrong:{t:"Actually False!",b:"OFFSET requires LIMIT. You need to tell SQL both how many to skip (OFFSET) and how many to return (LIMIT). Without LIMIT, OFFSET has no meaning."}}},
+          {type:'drag',q:'Build a query for page 2 of films sorted by title, showing 3 films per page.',words:['*','SELECT','film','FROM','ORDER BY','title','LIMIT 3','OFFSET 3'],correct:['SELECT','*','FROM','film','ORDER BY','title','LIMIT 3','OFFSET 3'],fb:{correct:{t:"Perfect pagination!",b:"SELECT * FROM film ORDER BY title LIMIT 3 OFFSET 3 — page 2 with 3 per page. OFFSET 3 skips the first 3 films (page 1), LIMIT 3 shows the next 3 (page 2)."},wrong:{t:"ORDER BY → LIMIT → OFFSET",b:"SELECT * FROM film ORDER BY title LIMIT 3 OFFSET 3. Page 2 with 3 per page means skip 3 rows (OFFSET 3) and show 3 rows (LIMIT 3)."}}},
+          {type:'choice',q:'A web app shows 20 products per page. You are on page 5. What is the OFFSET?',opts:['OFFSET 5','OFFSET 20','OFFSET 80','OFFSET 100'],correct:2,fb:{correct:{t:"OFFSET 80!",b:"(page - 1) x page_size = (5-1) x 20 = 80. Page 5 means skip the first 80 rows (4 pages worth of 20 each) and show the next 20."},wrong:{t:"Formula: (page - 1) x page size",b:"(5-1) x 20 = 80. You skip 4 full pages worth of results before showing page 5. OFFSET 80."}}}
+        ]
+      }
+    ]
   }
+
 ];
 
 let mistakeQueue=[];
