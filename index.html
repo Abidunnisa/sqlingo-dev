@@ -80,7 +80,7 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .code-block .val{color:#b45309;}
 
 /* ACTIVITY */
-.activity-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px;}
+
 .act-type{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:10px;}
 .act-q{font-size:16px;color:var(--text);line-height:1.6;margin-bottom:20px;font-weight:600;}
 .options{display:flex;flex-direction:column;gap:10px;}
@@ -122,6 +122,29 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
 .feedback.wrong-fb .fb-title{color:var(--wrong-text);}
 .fb-body{font-size:13px;line-height:1.6;color:var(--muted);}
 .fb-body code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--teal-light);color:var(--teal-deep);padding:1px 6px;border-radius:4px;}
+
+/* INFO BUTTON */
+.info-btn{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;background:var(--teal-light);border:1.5px solid var(--teal-mid);color:var(--teal-deep);font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.info-btn:hover{background:var(--teal);color:white;}
+.info-panel{background:var(--teal-light);border:1.5px solid var(--teal-mid);border-radius:12px;padding:14px 16px;margin-bottom:14px;display:none;}
+.info-panel.show{display:block;}
+.info-panel-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal-deep);font-weight:700;margin-bottom:8px;}
+.info-panel-body{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--teal-dark);line-height:1.8;}
+.activity-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px;position:relative;}
+
+/* TEST SCREEN */
+.test-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--teal),var(--teal-deep));color:white;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;border-radius:var(--radius);cursor:pointer;margin-top:12px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.test-btn:hover{opacity:0.9;transform:translateY(-1px);}
+.test-btn:disabled{background:var(--border);color:var(--muted-light);cursor:not-allowed;transform:none;}
+.test-progress{font-size:13px;color:var(--muted);font-weight:600;text-align:center;margin-bottom:16px;}
+.test-result-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:28px;max-width:400px;width:100%;margin:0 auto 24px;text-align:center;}
+.test-score{font-family:'DM Serif Display',serif;font-size:64px;font-weight:700;color:var(--teal);}
+.test-score.fail{color:var(--wrong-text);}
+.test-score-label{font-size:14px;color:var(--muted);margin-top:4px;font-weight:600;}
+.wrong-review{background:var(--wrong-bg);border:1.5px solid var(--wrong-border);border-radius:12px;padding:14px 16px;margin-bottom:10px;text-align:left;}
+.wrong-review-q{font-size:13px;font-weight:700;color:var(--wrong-text);margin-bottom:6px;}
+.wrong-review-correct{font-size:12px;color:var(--muted);}
+.wrong-review-correct span{color:var(--correct-text);font-weight:700;}
 
 /* RETRY BANNER */
 .retry-banner{background:var(--yellow-bg);border:1.5px solid var(--yellow-border);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;font-weight:700;color:var(--yellow-text);display:flex;gap:10px;align-items:center;}
@@ -178,6 +201,33 @@ html,body{background:#f7faf9 !important;color:#1a2e2a !important;font-family:'Nu
     <div class="xp-chip">⚡ <span id="session-xp">0</span> XP</div>
   </div>
   <div class="lesson-body" id="lesson-body"></div>
+</div>
+
+<div class="screen" id="test">
+  <div class="lesson-header">
+    <button class="btn-back" onclick="goHome()" aria-label="Back">←</button>
+    <div class="header-track"><div class="header-fill" id="test-fill" style="width:0%"></div></div>
+    <div class="xp-chip">Q <span id="test-q-num">1</span>/<span id="test-q-total">20</span></div>
+  </div>
+  <div class="lesson-body" id="test-body"></div>
+</div>
+
+<div class="screen" id="test-result">
+  <div style="padding:48px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+    <div style="font-size:64px;margin-bottom:16px;" id="result-emoji">🎉</div>
+    <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:8px;" id="result-title">Module Complete!</div>
+    <div style="font-size:15px;color:var(--muted);margin-bottom:32px;max-width:300px;line-height:1.6;" id="result-msg"></div>
+    <div class="test-result-card">
+      <div class="test-score" id="result-score">18/20</div>
+      <div class="test-score-label">Questions correct</div>
+    </div>
+    <div style="width:100%;max-width:400px;margin-bottom:24px;" id="wrong-answers-wrap">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:12px;text-align:left;">What to review:</div>
+      <div id="wrong-answers-list"></div>
+    </div>
+    <button class="btn-start" id="result-btn" onclick="handleResultBtn()" style="max-width:400px;width:100%;"></button>
+    <button class="btn-next show" onclick="goHome()" style="max-width:400px;width:100%;margin-top:10px;">Back to home</button>
+  </div>
 </div>
 
 <div class="screen" id="complete">
@@ -360,7 +410,7 @@ const modules=[
           {type:'choice',q:'You want films where the rental rate is MORE than 2.99. Which operator do you use?',opts:['=','>=','>','<'],correct:2,fb:{correct:{t:"Yes! > means strictly greater than.",b:"WHERE rental_rate > 2.99 returns only films where rental rate is more than 2.99. Films with exactly 2.99 will NOT be included."},wrong:{t:"Think carefully",b:"> means strictly greater than — does not include 2.99 itself. >= means greater than OR equal to — includes 2.99. You want strictly more than, so use >."}}},
           {type:'choice',q:'You want films where the rental rate is 2.99 OR MORE. Which operator do you use?',opts:['>','>=','=','<='],correct:1,fb:{correct:{t:"Correct! >= includes the value itself.",b:"WHERE rental_rate >= 2.99 returns films where rental rate is 2.99 or anything above it. The = in >= means include the value itself."},wrong:{t:"Think about or more",b:">= means greater than OR equal to. It includes the value you specify. > without = would exclude 2.99 itself."}}},
           {type:'choice',q:'Which operator checks if two values are NOT equal?',opts:['=','<>','>','<='],correct:1,fb:{correct:{t:"Yes! <> means not equal.",b:"<> and != both mean not equal to. WHERE rating <> 'G' returns all films that are NOT rated G. Both operators work the same way."},wrong:{t:"Not quite",b:"<> means not equal to. It is the same as !=. WHERE rating <> 'G' returns everything except G-rated films."}}},
-          {type:'fill',q:"Complete this query to find all films that are NOT rated PG.",template:"SELECT title FROM film WHERE rating ___ 'PG'",answer:'!=',fb:{correct:{t:"Perfect!",b:"!= means not equal to. WHERE rating != 'PG' returns all films where the rating is anything other than PG. You can also use <> — both work."},wrong:{t:"The operator you need is != or <>",b:"Both != and <> mean not equal to in SQL. WHERE rating != 'PG' returns everything except PG-rated films."}}},
+          {type:'fill',q:"Complete this query to find all films that are NOT rated PG.",template:"SELECT title FROM film WHERE rating ___ 'PG'",answer:['!=','<>'],fb:{correct:{t:"Perfect!",b:"!= means not equal to. WHERE rating != 'PG' returns all films where the rating is anything other than PG. You can also use <> — both work exactly the same."},wrong:{t:"The operator you need is != or <>",b:"Both != and <> mean not equal to in SQL. Either one works. WHERE rating != 'PG' or WHERE rating <> 'PG' both return everything except PG-rated films."}}},
           {type:'choice',q:'You want films with a rental duration of 5 days or LESS. Which query is correct?',opts:["SELECT * FROM film WHERE rental_duration > 5","SELECT * FROM film WHERE rental_duration < 5","SELECT * FROM film WHERE rental_duration <= 5","SELECT * FROM film WHERE rental_duration >= 5"],correct:2,fb:{correct:{t:"Yes! <= includes 5 itself.",b:"<= means less than or equal to. WHERE rental_duration <= 5 returns films with duration of exactly 5 or anything below it."},wrong:{t:"Think about or less",b:"<= means less than OR equal to — it includes the value itself. < would exclude 5. You want 5 or less, so use <=."}}},
           {type:'choice',q:'What does WHERE rental_rate = 0.99 return?',opts:['All films in the table','Films where rental rate is less than 0.99','Only films where rental rate is exactly 0.99','Films where rental rate is 0.99 or more'],correct:2,fb:{correct:{t:"Exactly!",b:"= is an exact match. Only rows where rental_rate is precisely 0.99 will be returned. Not 1.99, not 0.98 — exactly 0.99."},wrong:{t:"Remember what = means",b:"= means exactly equal to. WHERE rental_rate = 0.99 returns only rows where the rental rate is precisely 0.99."}}},
           {type:'drag',q:'Build a query to find all films with a replacement cost greater than 20.',words:['*','SELECT','WHERE','film','FROM','replacement_cost > 20'],correct:['SELECT','*','FROM','film','WHERE','replacement_cost > 20'],fb:{correct:{t:"Great!",b:"SELECT * FROM film WHERE replacement_cost > 20 — all columns, from the film table, only where replacement cost is more than 20."},wrong:{t:"Remember the order",b:"SELECT → FROM → WHERE. Build it as: SELECT * FROM film WHERE replacement_cost > 20"}}},
@@ -654,6 +704,11 @@ const modules=[
 ];
 
 let mistakeQueue=[];
+let testState={questions:[],current:0,answers:[],wrongAnswers:[]};
+
+const lessonHints = {"Meet the Database": "A database = collection of tables<br>Each table = rows + columns<br>Table name tells you what it stores", "SELECT & FROM": "SELECT column FROM table<br>SELECT * FROM table (all columns)<br>SELECT col1, col2 FROM table", "Common Mistakes": "Cases do NOT matter: SELECT = select<br>Spellings DO matter: film ≠ films<br>Use underscore: first_name not first name", "What is WHERE?": "SELECT col FROM table WHERE condition<br>WHERE filters rows like Amazon filters<br>One condition = one WHERE", "Comparison Operators": "= equal to<br>!= or <> not equal to<br>> greater than, < less than<br>>= greater than or equal, <= less than or equal", "Arithmetic Operators": "+ addition, - subtraction<br>* multiplication, / division<br>% modulus (remainder)<br>Works in SELECT and WHERE", "AND & OR": "AND = both conditions must be true<br>OR = either condition is enough<br>AND has higher priority than OR", "NOT & Combining Operators": "NOT reverses the condition<br>Use brackets to control order<br>(A OR B) AND C is different from A OR (B AND C)", "IN, BETWEEN & LIKE": "IN (val1, val2) = match a list<br>BETWEEN x AND y = inclusive range<br>LIKE % = anything, _ = one character", "IS NULL & IS NOT NULL": "NULL = no value (not zero, not empty)<br>Use IS NULL not = NULL<br>Use IS NOT NULL to find rows with values", "ORDER BY Basics": "ORDER BY col ASC (default, A to Z)<br>ORDER BY col DESC (Z to A, largest first)<br>Always goes after WHERE", "Multi-Column Sorting": "ORDER BY col1, col2<br>First column sorts first<br>Second column sorts within first column groups", "LIMIT": "LIMIT n = return only n rows<br>Always use with ORDER BY<br>Goes at the very end of the query", "OFFSET & Pagination": "LIMIT n OFFSET m<br>OFFSET = how many rows to skip<br>Page formula: OFFSET = (page-1) * page_size"};
+
+
 let inRetryMode=false;
 let act=null;
 
@@ -670,16 +725,22 @@ function renderStep(){
   }
   if(step.type==='story'){body.innerHTML=h+step.render();return;}
   if(step.type==='choice'){
-    h+=`<div class="activity-card"><div class="act-type">Choose the correct answer</div><div class="act-q">${step.q}</div><div class="options">${step.opts.map((o,i)=>`<button class="opt" onclick="chkChoice(${i})" id="op${i}"><span class="opt-ic" id="ic${i}">○</span>${o}</button>`).join('')}</div><div class="feedback" id="fb"></div></div><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
+    const hint=getLessonHint();
+    const hintHtml=hint?`<button class="info-btn" onclick="toggleInfo()" title="Quick reference">ⓘ</button><div class="info-panel" id="info-panel"><div class="info-panel-title">Quick Reference</div><div class="info-panel-body">${hint}</div></div>`:'';
+    h+=`<div class="activity-card">${hintHtml}<div class="act-type">Choose the correct answer</div><div class="act-q">${step.q}</div><div class="options">${step.opts.map((o,i)=>`<button class="opt" onclick="chkChoice(${i})" id="op${i}"><span class="opt-ic" id="ic${i}">○</span>${o}</button>`).join('')}</div><div class="feedback" id="fb"></div></div><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
     body.innerHTML=h;act={type:'choice',step};return;
   }
   if(step.type==='drag'){
     const sh=[...step.words].sort(()=>Math.random()-0.5);
-    h+=`<div class="activity-card"><div class="act-type">Arrange in the right order</div><div class="act-q">${step.q}</div><div class="drop-zone" id="dzone"><span class="zone-hint" id="zhint">Tap words below to place them here</span></div><div class="word-bank" id="wbank">${sh.map((w,i)=>`<div class="drag-word" id="dw${i}" onclick="tapW('${w}',${i})">${w}</div>`).join('')}</div><div class="feedback" id="fb"></div></div><button class="btn-check show" id="bcheck" onclick="chkDrag()">Check my answer</button><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
+    const hint=getLessonHint();
+    const hintHtml=hint?`<button class="info-btn" onclick="toggleInfo()" title="Quick reference">ⓘ</button><div class="info-panel" id="info-panel"><div class="info-panel-title">Quick Reference</div><div class="info-panel-body">${hint}</div></div>`:'';
+    h+=`<div class="activity-card">${hintHtml}<div class="act-type">Arrange in the right order</div><div class="act-q">${step.q}</div><div class="drop-zone" id="dzone"><span class="zone-hint" id="zhint">Tap words below to place them here</span></div><div class="word-bank" id="wbank">${sh.map((w,i)=>`<div class="drag-word" id="dw${i}" onclick="tapW('${w}',${i})">${w}</div>`).join('')}</div><div class="feedback" id="fb"></div></div><button class="btn-check show" id="bcheck" onclick="chkDrag()">Check my answer</button><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
     body.innerHTML=h;act={type:'drag',step,placed:[]};return;
   }
   if(step.type==='fill'){
-    h+=`<div class="activity-card"><div class="act-type">Fill in the blank</div><div class="act-q">${step.q}</div><div class="code-template">${step.template.replace('___','<span class="blank-span">___</span>')}</div><input class="fill-input" id="fin" placeholder="Type your answer..." oninput="onType()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/><div class="feedback" id="fb"></div></div><button class="btn-check show" id="bcheck" onclick="chkFill()" disabled>Check my answer</button><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
+    const hint=getLessonHint();
+    const hintHtml=hint?`<button class="info-btn" onclick="toggleInfo()" title="Quick reference">ⓘ</button><div class="info-panel" id="info-panel"><div class="info-panel-title">Quick Reference</div><div class="info-panel-body">${hint}</div></div>`:'';
+    h+=`<div class="activity-card">${hintHtml}<div class="act-type">Fill in the blank</div><div class="act-q">${step.q}</div><div class="code-template">${step.template.replace('___','<span class="blank-span">___</span>')}</div><input class="fill-input" id="fin" placeholder="Type your answer..." oninput="onType()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/><div class="feedback" id="fb"></div></div><button class="btn-check show" id="bcheck" onclick="chkFill()" disabled>Check my answer</button><button class="btn-next" id="bnext" onclick="nextStep()">Continue →</button>`;
     body.innerHTML=h;act={type:'fill',step};return;
   }
 }
@@ -727,7 +788,10 @@ function chkDrag(){
 function onType(){document.getElementById('bcheck').disabled=!document.getElementById('fin').value.trim();}
 
 function chkFill(){
-  const step=act.step,input=document.getElementById('fin'),ok=input.value.trim().toLowerCase()===step.answer.toLowerCase();
+  const step=act.step,input=document.getElementById('fin');
+  const val=input.value.trim().toLowerCase();
+  const answers=Array.isArray(step.answer)?step.answer.map(a=>a.toLowerCase()):[step.answer.toLowerCase()];
+  const ok=answers.includes(val);
   input.classList.add(ok?'correct-input':'wrong-input');input.disabled=true;
   if(!ok&&!mistakeQueue.includes(S.currentStep))mistakeQueue.push(S.currentStep);
   showFb(ok,step.fb);if(ok)addXP(10);
@@ -824,15 +888,179 @@ function renderModuleCard(){
     </div>`;
   }).join('');
   const allDone=done>=mod.lessons.length;
+  const testPassed=done>mod.lessons.length;
   document.getElementById('module-card').innerHTML=`
     <div class="module-tag">📦 Module ${S.currentMod+1}</div>
     <div class="module-name">${mod.name}</div>
     <div class="module-desc">${mod.desc}</div>
     <div class="lesson-list">${lessonsHTML}</div>
     <button class="btn-start" id="btn-start" onclick="startLesson()" ${allDone?'disabled':''}>
-      ${allDone?'Module complete! 🎉':done>0?'Continue →':"Let us go →"}
+      ${allDone?'All lessons done! ✓':done>0?'Continue →':"Let us go →"}
     </button>
+    ${allDone?`<button class="test-btn" onclick="startTest()" ${testPassed?'disabled':''}>
+      ${testPassed?'✓ Module Test Passed':'🎯 Take the Module Test'}
+    </button>`:''}
   `;
+}
+
+function getLessonHint(){
+  const mod=modules[S.currentMod];
+  const lesson=mod.lessons[S.currentLesson];
+  const hint=lessonHints[lesson.title];
+  if(!hint)return null;
+  return hint;
+}
+
+function toggleInfo(){
+  const panel=document.getElementById('info-panel');
+  if(panel)panel.classList.toggle('show');
+}
+
+function startTest(){
+  const mod=modules[S.currentMod];
+  const allSteps=[];
+  mod.lessons.forEach((lesson,li)=>{
+    lesson.steps.forEach((step,si)=>{
+      if(step.type!=='story'){
+        allSteps.push({...step,lessonTitle:lesson.title,lessonIdx:li,stepIdx:si});
+      }
+    });
+  });
+  const shuffled=[...allSteps].sort(()=>Math.random()-0.5);
+  testState.questions=shuffled.slice(0,20);
+  testState.current=0;
+  testState.answers=[];
+  testState.wrongAnswers=[];
+  show('test');
+  renderTestStep();
+}
+
+function renderTestStep(){
+  const q=testState.questions[testState.current];
+  const total=testState.questions.length;
+  const pct=Math.round((testState.current/total)*100);
+  document.getElementById('test-fill').style.width=pct+'%';
+  document.getElementById('test-q-num').textContent=testState.current+1;
+  document.getElementById('test-q-total').textContent=total;
+  const body=document.getElementById('test-body');
+  let h=`<div class="lesson-tag">Module Test · Question ${testState.current+1} of ${total}</div>
+  <div class="lesson-heading" style="font-size:20px;margin-bottom:20px;">No hints. One chance.</div>`;
+  if(q.type==='choice'){
+    h+=`<div class="activity-card"><div class="act-type">Choose the correct answer</div><div class="act-q">${q.q}</div><div class="options">${q.opts.map((o,i)=>`<button class="opt" onclick="answerTest(${i})" id="topt${i}"><span class="opt-ic" id="tic${i}">○</span>${o}</button>`).join('')}</div></div>`;
+    body.innerHTML=h;
+  } else if(q.type==='drag'){
+    const sh=[...q.words].sort(()=>Math.random()-0.5);
+    h+=`<div class="activity-card"><div class="act-type">Arrange in the right order</div><div class="act-q">${q.q}</div><div class="drop-zone" id="tdzone"><span class="zone-hint" id="tzhint">Tap words below</span></div><div class="word-bank">${sh.map((w,i)=>`<div class="drag-word" id="tdw${i}" onclick="tapTestW('${w}',${i})">${w}</div>`).join('')}</div></div><button class="btn-check show" onclick="checkTestDrag()">Check answer</button>`;
+    body.innerHTML=h;
+    testState.testPlaced=[];
+  } else if(q.type==='fill'){
+    h+=`<div class="activity-card"><div class="act-type">Fill in the blank</div><div class="act-q">${q.q}</div><div class="code-template">${q.template.replace('___','<span class="blank-span">___</span>')}</div><input class="fill-input" id="tfin" placeholder="Type your answer..." oninput="onTestType()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/></div><button class="btn-check show" id="tbcheck" onclick="checkTestFill()" disabled>Check answer</button>`;
+    body.innerHTML=h;
+  }
+  window.scrollTo(0,0);
+}
+
+function answerTest(idx){
+  const q=testState.questions[testState.current];
+  const ok=idx===q.correct;
+  document.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
+  document.getElementById('tic'+idx).textContent=ok?'✓':'✗';
+  document.getElementById('topt'+idx).classList.add(ok?'correct':'wrong');
+  if(!ok){
+    document.getElementById('topt'+q.correct).classList.add('correct');
+    document.getElementById('topt'+q.correct).classList.remove('disabled');
+    document.getElementById('tic'+q.correct).textContent='✓';
+    testState.wrongAnswers.push({q:q.q,correct:q.opts[q.correct]});
+  }
+  testState.answers.push(ok);
+  setTimeout(()=>nextTestStep(),1200);
+}
+
+function tapTestW(word,idx){
+  const el=document.getElementById('tdw'+idx);
+  if(el.classList.contains('used'))return;
+  el.classList.add('used');
+  const zone=document.getElementById('tdzone'),hint=document.getElementById('tzhint');
+  if(hint)hint.remove();
+  const pw=document.createElement('div');pw.className='placed-word';pw.textContent=word;
+  pw.onclick=()=>{pw.remove();el.classList.remove('used');testState.testPlaced=testState.testPlaced.filter(p=>p.idx!==idx);};
+  zone.appendChild(pw);
+  testState.testPlaced=testState.testPlaced||[];
+  testState.testPlaced.push({word,idx});
+}
+
+function checkTestDrag(){
+  const q=testState.questions[testState.current];
+  const placed=(testState.testPlaced||[]).map(p=>p.word);
+  const ok=JSON.stringify(placed)===JSON.stringify(q.correct);
+  if(!ok)testState.wrongAnswers.push({q:q.q,correct:q.correct.join(' ')});
+  testState.answers.push(ok);
+  nextTestStep();
+}
+
+function onTestType(){
+  document.getElementById('tbcheck').disabled=!document.getElementById('tfin').value.trim();
+}
+
+function checkTestFill(){
+  const q=testState.questions[testState.current];
+  const val=document.getElementById('tfin').value.trim().toLowerCase();
+  const answers=Array.isArray(q.answer)?q.answer.map(a=>a.toLowerCase()):[q.answer.toLowerCase()];
+  const ok=answers.includes(val);
+  if(!ok)testState.wrongAnswers.push({q:q.q,correct:q.answer});
+  testState.answers.push(ok);
+  nextTestStep();
+}
+
+function nextTestStep(){
+  testState.current++;
+  if(testState.current>=testState.questions.length){
+    showTestResult();return;
+  }
+  renderTestStep();
+}
+
+function showTestResult(){
+  const correct=testState.answers.filter(a=>a).length;
+  const total=testState.questions.length;
+  const pct=Math.round((correct/total)*100);
+  const passed=pct>=80;
+  document.getElementById('result-emoji').textContent=passed?'🏆':'💪';
+  document.getElementById('result-title').textContent=passed?'Module Complete!':'Not quite — keep going!';
+  document.getElementById('result-msg').textContent=passed?
+    `You scored ${pct}% — outstanding! You have earned a bonus +100 XP.`:
+    `You scored ${pct}%. You need 80% to pass. Review the lessons and try again — you are close!`;
+  const scoreEl=document.getElementById('result-score');
+  scoreEl.textContent=correct+'/'+total;
+  scoreEl.className='test-score'+(passed?'':' fail');
+  if(passed){
+    S.xp+=100;
+    localStorage.setItem('sq_xp',S.xp);
+    S.modDone[S.currentMod]=modules[S.currentMod].lessons.length+1;
+    localStorage.setItem('sq_mod_done',JSON.stringify(S.modDone));
+  }
+  const wrongWrap=document.getElementById('wrong-answers-wrap');
+  const wrongList=document.getElementById('wrong-answers-list');
+  if(testState.wrongAnswers.length>0){
+    wrongWrap.style.display='block';
+    wrongList.innerHTML=testState.wrongAnswers.map(w=>`
+      <div class="wrong-review">
+        <div class="wrong-review-q">${w.q}</div>
+        <div class="wrong-review-correct">Correct answer: <span>${w.correct}</span></div>
+      </div>`).join('');
+  } else {
+    wrongWrap.style.display='none';
+  }
+  const btn=document.getElementById('result-btn');
+  btn.textContent=passed?'Continue to next module →':'Retake test';
+  updateHome();
+  show('test-result');
+}
+
+function handleResultBtn(){
+  const passed=testState.answers.filter(a=>a).length/testState.questions.length>=0.8;
+  if(passed){goHome();}
+  else{startTest();}
 }
 
 function updateHome(){
